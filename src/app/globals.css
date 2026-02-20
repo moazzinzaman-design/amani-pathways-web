@@ -233,7 +233,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-text-shift 6s ease infinite;
+  animation: gradient-text-shift 12s ease infinite;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -284,50 +284,22 @@
 }
 
 /* ═══════════════════════════════════════════════════════
-   UPGRADE #5 — ANIMATED GRADIENT BORDER (conic rotation)
+   UPGRADE #5 — SIMPLE HOVER BORDER HIGHLIGHT
+   (replaces the expensive spinning conic-gradient which
+    caused a GPU repaint every frame)
 ═══════════════════════════════════════════════════════ */
-
-@keyframes border-spin {
-  from {
-    --border-angle: 0deg;
-  }
-
-  to {
-    --border-angle: 360deg;
-  }
-}
-
-@property --border-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
 
 .animated-border {
   position: relative;
   background: white;
   border-radius: 1.5rem;
+  transition: box-shadow 0.35s ease;
 }
 
-.animated-border::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: calc(1.5rem + 2px);
-  background: conic-gradient(from var(--border-angle),
-      #7c5cfc,
-      #14b8a6,
-      #fbbf24,
-      #f43f5e,
-      #7c5cfc);
-  animation: border-spin 4s linear infinite;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.animated-border:hover::before {
-  opacity: 1;
+.animated-border:hover {
+  box-shadow:
+    0 0 0 2px #7c5cfc,
+    0 20px 48px -8px rgba(124, 92, 252, 0.16);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -489,24 +461,41 @@ nav {
     animation: blink 0.8s step-end infinite;
   }
 
-  /* Premium button glow pulse */
-  @keyframes btn-pulse {
+  /* Reduce compositing pressure on spotlight */
+  .spotlight-container .spotlight {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 92, 252, 0.10) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    will-change: transform;
+  }
 
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 rgba(124, 92, 252, 0.3);
+  /* Accessibility + extra perf: disable everything for reduced-motion users */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
 
-    50% {
-      box-shadow: 0 0 0 10px rgba(124, 92, 252, 0);
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 
-  .btn-pulse {
-    animation: btn-pulse 2.5s ease infinite;
-  }
-
-  /* Smooth elevation on focus for accessibility */
+  /* Smooth elevation on focus */
   *:focus-visible {
     outline: 2px solid #7c5cfc;
     outline-offset: 3px;

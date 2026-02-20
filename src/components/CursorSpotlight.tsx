@@ -1,47 +1,57 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 /**
- * UPGRADE #4 — Cursor Spotlight Glow
- * Renders a soft radial glow that follows the user's cursor
- * across dark sections (hero, CTA, etc.).
- * Add className="spotlight-container" to the parent section.
+ * UPGRADE #4 — Cursor Spotlight Glow (rAF-throttled)
+ * Moves a radial glow element to follow the cursor inside any .spotlight-container.
+ * Throttled with requestAnimationFrame to avoid layout thrashing.
  */
 export default function CursorSpotlight() {
-    const spotRef = useRef<HTMLDivElement>(null);
-
     useEffect(() => {
-        const containers = document.querySelectorAll<HTMLElement>(".spotlight-container");
+        let rafId: number | null = null;
+        let lastX = 0;
+        let lastY = 0;
+        let dirty = false;
 
         const handleMouseMove = (e: MouseEvent) => {
-            containers.forEach((container) => {
-                const rect = container.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const spot = container.querySelector<HTMLDivElement>(".spotlight");
-                if (spot) {
-                    spot.style.left = `${x}px`;
-                    spot.style.top = `${y}px`;
-                    spot.style.opacity = "1";
-                }
-            });
+            lastX = e.clientX;
+            lastY = e.clientY;
+            dirty = true;
         };
 
-        const handleMouseLeave = () => {
-            containers.forEach((container) => {
-                const spot = container.querySelector<HTMLDivElement>(".spotlight");
-                if (spot) spot.style.opacity = "0";
-            });
+        const update = () => {
+            if (dirty) {
+                dirty = false;
+                const containers = document.querySelectorAll<HTMLElement>(".spotlight-container");
+                containers.forEach((container) => {
+                    const spot = container.querySelector<HTMLElement>(".spotlight");
+                    if (!spot) return;
+                    const rect = container.getBoundingClientRect();
+                    // Only update if mouse is actually inside the container
+                    if (
+                        lastX >= rect.left && lastX <= rect.right &&
+                        lastY >= rect.top && lastY <= rect.bottom
+                    ) {
+                        spot.style.left = `${lastX - rect.left}px`;
+                        spot.style.top = `${lastY - rect.top}px`;
+                        spot.style.opacity = "1";
+                    } else {
+                        spot.style.opacity = "0";
+                    }
+                });
+            }
+            rafId = requestAnimationFrame(update);
         };
 
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseleave", handleMouseLeave);
+        document.addEventListener("mousemove", handleMouseMove, { passive: true });
+        rafId = requestAnimationFrame(update);
+
         return () => {
             document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseleave", handleMouseLeave);
+            if (rafId !== null) cancelAnimationFrame(rafId);
         };
     }, []);
 
-    return <div ref={spotRef} />;
+    return null;
 }

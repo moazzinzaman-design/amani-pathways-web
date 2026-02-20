@@ -61,20 +61,44 @@ function useParallax() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // Cache references once rather than querying every scroll tick
+    const orb1 = el.querySelector<HTMLElement>("[data-parallax='1']");
+    const orb2 = el.querySelector<HTMLElement>("[data-parallax='2']");
+    const orb3 = el.querySelector<HTMLElement>("[data-parallax='3']");
+
+    let rafId: number | null = null;
+    let lastScroll = window.scrollY;
+    let dirty = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const orb1 = el.querySelector<HTMLElement>("[data-parallax='1']");
-      const orb2 = el.querySelector<HTMLElement>("[data-parallax='2']");
-      const orb3 = el.querySelector<HTMLElement>("[data-parallax='3']");
-      if (orb1) orb1.style.transform = `translate(0, ${scrollY * 0.18}px)`;
-      if (orb2) orb2.style.transform = `translate(0, ${scrollY * -0.12}px)`;
-      if (orb3) orb3.style.transform = `translate(0, ${scrollY * 0.09}px)`;
+      lastScroll = window.scrollY;
+      dirty = true;
     };
+
+    const tick = () => {
+      if (dirty) {
+        dirty = false;
+        // Only apply parallax while the hero section is near the viewport
+        if (lastScroll < window.innerHeight * 1.5) {
+          if (orb1) orb1.style.transform = `translateY(${lastScroll * 0.18}px)`;
+          if (orb2) orb2.style.transform = `translateY(${lastScroll * -0.12}px)`;
+          if (orb3) orb3.style.transform = `translateY(${lastScroll * 0.09}px)`;
+        }
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
   return ref;
 }
+
 
 /* ─── Page ──────────────────────────────────────────────────── */
 
@@ -126,7 +150,7 @@ export default function HomePage() {
               {/* UPGRADE #5 — Animated gradient border + btn-pulse */}
               <Link
                 href="/referrals"
-                className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-indigo-500 via-indigo-500 to-teal-500 text-white font-semibold rounded-2xl transition-all duration-300 shadow-xl shadow-indigo-500/25 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-1 overflow-hidden btn-pulse"
+                className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-indigo-500 via-indigo-500 to-teal-500 text-white font-semibold rounded-2xl transition-all duration-300 shadow-xl shadow-indigo-500/25 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-1 overflow-hidden"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <span className="relative">Make a Referral</span>
