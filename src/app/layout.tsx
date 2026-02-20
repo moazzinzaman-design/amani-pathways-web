@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollReveal from "@/components/ScrollReveal";
+import CursorSpotlight from "@/components/CursorSpotlight";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,6 +35,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`}>
+        <ScrollReveal />
+        <CursorSpotlight />
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />

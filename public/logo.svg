@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420" width="400" height="420">
+  <defs>
+    <!-- Circle gradient: blue-left to teal-right -->
+    <radialGradient id="circleGrad" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#3a7bbf"/>
+      <stop offset="50%" stop-color="#2d6ca8"/>
+      <stop offset="100%" stop-color="#2a9d8f"/>
+    </radialGradient>
+    <!-- Path/road gradient: amber-gold -->
+    <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9c46a"/>
+      <stop offset="100%" stop-color="#f4a261"/>
+    </linearGradient>
+    <!-- Shadow filter -->
+    <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Border circle -->
+  <circle cx="200" cy="190" r="162" fill="none" stroke="#b0b8c6" stroke-width="3"/>
+  <!-- Background circle -->
+  <circle cx="200" cy="190" r="158" fill="url(#circleGrad)"/>
+
+  <!-- DOVE / BIRD body & wings -->
+  <!-- Left wing -->
+  <path d="M 80 145 Q 110 85 190 120 Q 155 130 140 155 Z" fill="#2a5a8a" opacity="0.75"/>
+  <!-- Main body + right wing sweep -->
+  <path d="M 145 155 Q 180 100 280 85 Q 270 130 235 150 Q 200 115 175 165 Z" fill="#1e4d77" opacity="0.80"/>
+  <!-- Wing top feathers -->
+  <path d="M 165 108 Q 210 70 285 72 Q 260 100 225 115 Z" fill="#2a6895" opacity="0.65"/>
+  <!-- Bird head -->
+  <circle cx="248" cy="104" r="14" fill="#1e4d77" opacity="0.85"/>
+  <!-- Beak -->
+  <path d="M 259 100 L 274 98 L 262 106 Z" fill="#e9c46a"/>
+  <!-- Eye -->
+  <circle cx="253" cy="101" r="3" fill="white" opacity="0.9"/>
+  <circle cx="254" cy="101" r="1.5" fill="#13344f"/>
+
+  <!-- HAND cradling the dove (below bird body) -->
+  <path d="M 145 170 Q 158 190 185 195 Q 200 200 215 195 Q 240 190 255 178 Q 245 200 225 210 Q 200 218 175 210 Q 155 205 145 190 Z" fill="#2a5a8a" opacity="0.70"/>
+  <!-- Thumb detail -->
+  <path d="M 142 172 Q 135 185 142 195 Q 150 190 150 178 Z" fill="#2a5a8a" opacity="0.65"/>
+
+  <!-- WINDING ROAD / PATH from center-bottom up to heart-house -->
+  <path d="M 175 310 Q 165 280 180 255 Q 195 230 210 240 Q 225 250 235 232 Q 248 215 240 205"
+        fill="none" stroke="url(#pathGrad)" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- STAR sparkle on path -->
+  <g transform="translate(210,248)">
+    <polygon points="0,-7 2,-2 7,-2 3,1 5,7 0,3 -5,7 -3,1 -7,-2 -2,-2" fill="#f4d03f" opacity="0.95"/>
+  </g>
+
+  <!-- HEART-HOUSE icon at top of path -->
+  <g transform="translate(232, 185)">
+    <!-- Heart shape -->
+    <path d="M0,-10 C-10,-22 -24,-10 0,8 C24,-10 10,-22 0,-10 Z" fill="#e9c46a" opacity="0.95"/>
+    <!-- Simple house roof inside -->
+    <polygon points="0,-4 -7,2 7,2" fill="#d4922a" opacity="0.8"/>
+    <!-- Door -->
+    <rect x="-3" y="2" width="6" height="5" rx="1" fill="#d4922a" opacity="0.8"/>
+  </g>
+
+  <!-- COMPANY NAME -->
+  <text x="200" y="362" text-anchor="middle"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+        font-size="28" font-weight="800" letter-spacing="3"
+        fill="#1e3a5f">
+    AMANIPATHWAYS
+  </text>
+
+  <!-- TAGLINE -->
+  <text x="200" y="392" text-anchor="middle"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+        font-size="13" font-style="italic" letter-spacing="0.5"
+        fill="#2a9d8f">
+    Providing a path to independence and peace of mind.
+  </text>
+</svg>

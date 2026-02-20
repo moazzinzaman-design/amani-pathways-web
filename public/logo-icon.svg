@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320">
+  <defs>
+    <radialGradient id="bg" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#3a7bbf"/>
+      <stop offset="50%" stop-color="#2d6ca8"/>
+      <stop offset="100%" stop-color="#2a9d8f"/>
+    </radialGradient>
+    <linearGradient id="road" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e9c46a"/>
+      <stop offset="100%" stop-color="#f4a261"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Border circle -->
+  <circle cx="160" cy="160" r="155" fill="none" stroke="#b0b8c6" stroke-width="3"/>
+  <!-- Background -->
+  <circle cx="160" cy="160" r="152" fill="url(#bg)"/>
+
+  <!-- DOVE wings and body -->
+  <path d="M 50 118 Q 80 58 160 93 Q 125 103 110 128 Z" fill="#2a5a8a" opacity="0.75"/>
+  <path d="M 115 128 Q 150 73 250 58 Q 240 103 205 123 Q 170 88 145 138 Z" fill="#1e4d77" opacity="0.80"/>
+  <path d="M 138 82 Q 183 44 255 46 Q 232 74 197 89 Z" fill="#2a6895" opacity="0.65"/>
+  <!-- Head -->
+  <circle cx="218" cy="77" r="13" fill="#1e4d77" opacity="0.85"/>
+  <!-- Beak -->
+  <path d="M 228 73 L 243 71 L 231 79 Z" fill="#e9c46a"/>
+  <!-- Eye -->
+  <circle cx="223" cy="74" r="3" fill="white" opacity="0.9"/>
+  <circle cx="224" cy="74" r="1.5" fill="#13344f"/>
+
+  <!-- HAND -->
+  <path d="M 112 143 Q 126 162 153 167 Q 168 172 183 167 Q 207 162 222 150 Q 212 172 192 182 Q 168 190 143 182 Q 123 177 112 162 Z" fill="#2a5a8a" opacity="0.70"/>
+  <path d="M 110 145 Q 103 158 110 168 Q 118 163 118 150 Z" fill="#2a5a8a" opacity="0.65"/>
+
+  <!-- WINDING ROAD -->
+  <path d="M 142 278 Q 132 250 147 226 Q 162 202 177 212 Q 192 222 202 204 Q 215 187 207 178"
+        fill="none" stroke="url(#road)" stroke-width="14" stroke-linecap="round"/>
+
+  <!-- STAR -->
+  <g transform="translate(178,220)">
+    <polygon points="0,-7 2,-2 7,-2 3,1 5,7 0,3 -5,7 -3,1 -7,-2 -2,-2" fill="#f4d03f" opacity="0.95"/>
+  </g>
+
+  <!-- HEART-HOUSE -->
+  <g transform="translate(200, 158)">
+    <path d="M0,-10 C-10,-22 -24,-10 0,8 C24,-10 10,-22 0,-10 Z" fill="#e9c46a" opacity="0.95"/>
+    <polygon points="0,-4 -7,2 7,2" fill="#d4922a" opacity="0.8"/>
+    <rect x="-3" y="2" width="6" height="5" rx="1" fill="#d4922a" opacity="0.8"/>
+  </g>
+</svg>
