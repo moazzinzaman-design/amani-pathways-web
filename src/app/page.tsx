@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   Shield, Users, Home, HeartHandshake, ArrowRight, CheckCircle2,
-  Sparkles, Star, Zap, Globe, Heart, Eye, Handshake, Scale,
-  Lightbulb, Lock, Quote, ChevronRight, ClipboardList, Compass,
+  Sparkles, Zap, Globe, Heart, Eye, Handshake, Scale,
+  Lightbulb, Lock, ChevronRight, ClipboardList, Compass,
   GraduationCap, HouseIcon,
 } from "lucide-react";
 import CountUp from "@/components/CountUp";
@@ -46,11 +46,7 @@ const pathwaySteps = [
   { step: "05", icon: HouseIcon, title: "Transition to Independence", description: "A carefully managed move-on plan prepares the young person for independent living with ongoing aftercare.", color: "from-violet-500 to-violet-400", glow: "shadow-violet-500/25" },
 ];
 
-const testimonials = [
-  { quote: "The young person we placed with Amani Pathways has made remarkable progress. The team's patience, cultural sensitivity and professionalism has been outstanding.", author: "Social Worker", authority: "Calderdale Metropolitan Borough Council", stars: 5 },
-  { quote: "Communication throughout the placement has been exemplary. I always feel informed and confident that the young person is safe and thriving.", author: "Placing Social Worker", authority: "West Yorkshire Local Authority", stars: 5 },
-  { quote: "Amani Pathways genuinely go above and beyond. The key-worker approach means the young person feels truly heard and supported at every step.", author: "Independent Reviewing Officer", authority: "Bradford Council", stars: 5 },
-];
+
 
 const heroWords = [
   "Independent Futures",
@@ -331,48 +327,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ─────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-slate-50">
+      {/* ── CREDENTIALS STRIP ─────────────────────────────── */}
+      <section className="py-14 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14 reveal">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-50 text-amber-600 rounded-full text-xs font-semibold mb-4">
-              <Star className="w-3 h-3" />
-              Professional Feedback
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-              Trusted by <span className="gradient-text">Commissioners</span>
-            </h2>
-            <p className="mt-4 text-slate-500 text-lg">
-              What social workers and placing authorities say about working with Amani Pathways.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div key={i} className={`reveal card-shimmer animated-border group relative p-7 bg-white rounded-3xl border border-slate-100 card-hover flex flex-col stagger-${i + 1}`} data-delay={i * 100}>
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-teal-500 flex items-center justify-center mb-5 shadow-md shadow-indigo-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <Quote className="w-4 h-4 text-white" />
-                </div>
-                <div className="flex gap-0.5 mb-4">
-                  {Array.from({ length: t.stars }).map((_, s) => (
-                    <Star key={s} className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  ))}
-                </div>
-                <p className="text-slate-600 text-sm leading-relaxed italic flex-1 mb-6">&ldquo;{t.quote}&rdquo;</p>
-                <div className="border-t border-slate-100 pt-4">
-                  <p className="text-sm font-semibold text-slate-900">{t.author}</p>
-                  <p className="text-xs text-slate-400 mt-0.5">{t.authority}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Trust badges */}
-          <div className="mt-12 flex flex-wrap justify-center items-center gap-4 reveal">
-            {["Ofsted Regulated", "DBS Checked Staff", "24/7 Safeguarding", "Trauma-Informed", "Calderdale Partnership"].map((badge) => (
-              <div key={badge} className="flex items-center gap-2 px-5 py-2.5 bg-white rounded-full border border-slate-200 shadow-sm text-sm font-medium text-slate-600 hover:border-indigo-200 hover:shadow-md transition-all duration-200">
-                <CheckCircle2 className="w-4 h-4 text-teal-500 shrink-0" />
-                {badge}
+          <p className="text-center text-xs font-semibold text-slate-400 uppercase tracking-widest mb-8 reveal">Our Standards &amp; Credentials</p>
+          <div className="flex flex-wrap justify-center items-center gap-4 reveal">
+            {[
+              { label: "Ofsted Regulated", icon: Shield },
+              { label: "DBS Checked Staff", icon: CheckCircle2 },
+              { label: "24/7 Staffing", icon: Zap },
+              { label: "Trauma-Informed Care", icon: HeartHandshake },
+              { label: "Culturally Sensitive", icon: Globe },
+            ].map(({ label, icon: Icon }) => (
+              <div key={label} className="flex items-center gap-2.5 px-5 py-3 bg-white rounded-full border border-slate-200 shadow-sm text-sm font-medium text-slate-700 hover:border-indigo-200 hover:shadow-md transition-all duration-200">
+                <Icon className="w-4 h-4 text-teal-500 shrink-0" />
+                {label}
               </div>
             ))}
           </div>
