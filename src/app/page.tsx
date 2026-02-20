@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   Shield, Users, Home, HeartHandshake, ArrowRight, CheckCircle2,
-  Sparkles, Zap, Globe, Heart, Eye, Handshake, Scale,
+  Sparkles, Star, Zap, Globe, Heart, Eye, Handshake, Scale,
   Lightbulb, Lock, ChevronRight, ClipboardList, Compass,
   GraduationCap, HouseIcon,
 } from "lucide-react";
