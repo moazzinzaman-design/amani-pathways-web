@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -20,7 +20,9 @@ import {
     Info,
     ExternalLink,
     GraduationCap,
-    Globe
+    Globe,
+    Copy,
+    Check
 } from "lucide-react";
 
 export function WelcomeBook() {
@@ -29,6 +31,24 @@ export function WelcomeBook() {
 
     const nextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages - 1));
     const prevPage = () => setCurrentPage((p) => Math.max(p - 1, 0));
+
+    // Improvement #9: Arrow key navigation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "ArrowRight") nextPage();
+            if (e.key === "ArrowLeft") prevPage();
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [currentPage]);
+
+    // Improvement #10: Wi-Fi Copy functionality
+    const [copied, setCopied] = useState(false);
+    const copyWifi = () => {
+        navigator.clipboard.writeText("AmaniWelcome2026!");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     return (
         <div className="w-full max-w-4xl mx-auto min-h-[70vh] flex flex-col items-center justify-center relative bg-white/50 backdrop-blur-xl rounded-3xl shadow-2xl border border-white p-4 sm:p-8">
@@ -47,13 +67,12 @@ export function WelcomeBook() {
                             <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-medium z-0 px-12 text-center">
                                 [Illustration: A vibrant sun rising over the Halifax hills with a path leading forward]
                             </div>
-                            <img
+                            <Image
                                 src="/images/welcome-key.png"
                                 alt="A new beginning"
-                                className="absolute inset-0 w-full h-full object-cover z-0"
-                                onError={(e) => {
-                                    (e.target as HTMLImageElement).style.display = 'none';
-                                }}
+                                fill
+                                className="object-cover z-0"
+                                priority
                             />
                             <div className="absolute top-6 left-6 z-20 bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-lg">
                                 <Image src="/logo-icon.svg" alt="Amani Pathways Logo" width={40} height={40} className="w-10 h-10" />
@@ -96,9 +115,19 @@ export function WelcomeBook() {
                                         <span className="text-xs text-slate-500 font-semibold uppercase">Network</span>
                                         <span className="font-mono text-slate-800">Amani_Resident_Secure</span>
                                     </div>
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col relative">
                                         <span className="text-xs text-slate-500 font-semibold uppercase">Password</span>
-                                        <span className="font-mono text-slate-800 tracking-wider">AmaniWelcome2026!</span>
+                                        <div className="flex items-center justify-between">
+                                            <span className="font-mono text-slate-800 tracking-wider">AmaniWelcome2026!</span>
+                                            <button
+                                                onClick={copyWifi}
+                                                className="p-1.5 hover:bg-slate-200 rounded-md transition-colors text-slate-500"
+                                                title="Copy password"
+                                                aria-label="Copy Wi-Fi password"
+                                            >
+                                                {copied ? <Check className="w-3.5 h-3.5 text-green-600" /> : <Copy className="w-3.5 h-3.5" />}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <p className="text-sm text-slate-500 mt-auto italic">Free Wi-Fi is available throughout the house.</p>
@@ -147,7 +176,7 @@ export function WelcomeBook() {
                                     <BookOpen className="w-5 h-5 text-blue-500" /> Calderdale College
                                 </h3>
                                 <div className="relative h-40 w-full mb-4 rounded-xl overflow-hidden">
-                                    <img src="/images/education-halifax.png" alt="Education in Halifax" className="w-full h-full object-cover" />
+                                    <Image src="/images/education-halifax.png" alt="Education in Halifax" fill className="object-cover" />
                                 </div>
                                 <p className="text-slate-600 mb-4">
                                     Most students your age go here to study ESOL (English for Speakers of Other Languages) or vocational courses like IT, Construction, or Health.
@@ -272,7 +301,7 @@ export function WelcomeBook() {
                             <div className="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100">
                                 <h3 className="text-lg font-bold text-slate-800 mb-3 font-serif">Halifax Borough Market</h3>
                                 <div className="relative h-32 w-full mb-3 rounded-lg overflow-hidden">
-                                    <img src="/images/halifax-market.png" alt="Halifax Borough Market" className="w-full h-full object-cover" />
+                                    <Image src="/images/halifax-market.png" alt="Halifax Borough Market" fill className="object-cover" />
                                 </div>
                                 <p className="text-sm text-slate-600 mb-4">
                                     A beautiful Victorian market where you can find fresh fruit, vegetables, and affordable food from all over the world.
@@ -342,7 +371,7 @@ export function WelcomeBook() {
 
                         <div className="mt-6 bg-gradient-to-r from-orange-400 to-amber-500 p-8 rounded-3xl text-white shadow-lg overflow-hidden relative">
                             <div className="absolute top-0 right-0 h-full w-1/3 opacity-40">
-                                <img src="/images/halifax-park.png" alt="People's Park" className="w-full h-full object-cover" />
+                                <Image src="/images/halifax-park.png" alt="People's Park" fill className="object-cover" />
                             </div>
                             <h3 className="text-xl font-bold mb-2">People&apos;s Park</h3>
                             <p className="text-orange-50 relative z-10 leading-relaxed max-w-[70%]">

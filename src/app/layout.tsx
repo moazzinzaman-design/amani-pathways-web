@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import CursorSpotlight from "@/components/CursorSpotlight";
+import BackToTop from "@/components/BackToTop";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,6 +27,27 @@ export const metadata: Metadata = {
     "West Yorkshire",
     "safeguarding",
   ],
+  authors: [{ name: "Amani Pathways Team" }],
+  creator: "Amani Pathways Ltd",
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    url: "https://amanipathways.co.uk",
+    title: "Amani Pathways | Supported Accommodation for UASC",
+    description: "Trauma-informed, Ofsted-regulated supported accommodation for UASC in Halifax, West Yorkshire.",
+    siteName: "Amani Pathways",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amani Pathways | Supported Accommodation",
+    description: "Empowering young futures through trauma-informed care.",
+  },
+  robots: "index, follow",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -35,11 +58,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`}>
+        <ScrollProgress />
+        <a href="#main-content" className="skip-to-content">
+          Skip to content
+        </a>
         <ScrollReveal />
         <CursorSpotlight />
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main id="main-content" className="min-h-screen">{children}</main>
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );
