@@ -48,7 +48,7 @@ export function WelcomeBook() {
                                 [Illustration: A vibrant sun rising over the Halifax hills with a path leading forward]
                             </div>
                             <img
-                                src="/images/welcome-key.jpg"
+                                src="/images/welcome-key.png"
                                 alt="A new beginning"
                                 className="absolute inset-0 w-full h-full object-cover z-0"
                                 onError={(e) => {
@@ -146,6 +146,9 @@ export function WelcomeBook() {
                                 <h3 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
                                     <BookOpen className="w-5 h-5 text-blue-500" /> Calderdale College
                                 </h3>
+                                <div className="relative h-40 w-full mb-4 rounded-xl overflow-hidden">
+                                    <img src="/images/education-halifax.png" alt="Education in Halifax" className="w-full h-full object-cover" />
+                                </div>
                                 <p className="text-slate-600 mb-4">
                                     Most students your age go here to study ESOL (English for Speakers of Other Languages) or vocational courses like IT, Construction, or Health.
                                 </p>
@@ -268,6 +271,9 @@ export function WelcomeBook() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100">
                                 <h3 className="text-lg font-bold text-slate-800 mb-3 font-serif">Halifax Borough Market</h3>
+                                <div className="relative h-32 w-full mb-3 rounded-lg overflow-hidden">
+                                    <img src="/images/halifax-market.png" alt="Halifax Borough Market" className="w-full h-full object-cover" />
+                                </div>
                                 <p className="text-sm text-slate-600 mb-4">
                                     A beautiful Victorian market where you can find fresh fruit, vegetables, and affordable food from all over the world.
                                 </p>
@@ -335,56 +341,56 @@ export function WelcomeBook() {
                         </div>
 
                         <div className="mt-6 bg-gradient-to-r from-orange-400 to-amber-500 p-8 rounded-3xl text-white shadow-lg overflow-hidden relative">
-                            <div className="absolute top-0 right-0 p-4 opacity-20">
-                                <Image src="/images/park-illustration.svg" alt="Park" width={100} height={100} className="w-24 h-24" />
+                            <div className="absolute top-0 right-0 h-full w-1/3 opacity-40">
+                                <img src="/images/halifax-park.png" alt="People's Park" className="w-full h-full object-cover" />
                             </div>
                             <h3 className="text-xl font-bold mb-2">People&apos;s Park</h3>
-                            <p className="text-orange-50 relative z-10 leading-relaxed">
+                            <p className="text-orange-50 relative z-10 leading-relaxed max-w-[70%]">
                                 A beautiful, free park very close to the town center. Perfect for a walk, meeting friends, or just breathing fresh air on a sunny day.
                             </p>
                         </div>
                     </div>
+                </div>
 
-                    {/* ======================= PAGE 8: Next Steps ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-slate-900 p-6 sm:p-12 text-white overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                            <div className="absolute top-[10%] left-[10%] w-96 h-96 bg-blue-500 rounded-full filter blur-[120px]" />
-                            <div className="absolute bottom-[10%] right-[10%] w-96 h-96 bg-purple-500 rounded-full filter blur-[120px]" />
-                        </div>
-
-                        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center max-w-2xl mx-auto">
-                            <div className="w-20 h-20 bg-blue-500 rounded-3xl flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(59,130,246,0.5)]">
-                                <MapPin className="w-10 h-10 text-white" />
-                            </div>
-                            <h2 className="text-4xl sm:text-5xl font-black mb-6">Ready to Explore?</h2>
-                            <p className="text-xl text-slate-300 mb-12 leading-relaxed font-serif italic">
-                                You now know the basics. Now it&apos;s time to see where everything is located on our interactive map.
-                            </p>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
-                                <Link
-                                    href="/interactive-map"
-                                    className="inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-xl hover:scale-105 active:scale-95"
-                                >
-                                    <MapPin className="w-5 h-5" /> Open Map
-                                </Link>
-                                <button
-                                    onClick={() => setCurrentPage(0)}
-                                    className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-6 rounded-2xl transition-all backdrop-blur-md"
-                                >
-                                    <ChevronLeft className="w-5 h-5" /> Start Over
-                                </button>
-                            </div>
-
-                            <div className="mt-16 pt-8 border-t border-white/10 w-full">
-                                <p className="text-sm text-slate-500 uppercase tracking-widest font-bold">
-                                    Amani Pathways • Sovereign Citizenship
-                                </p>
-                            </div>
-                        </div>
+                {/* ======================= PAGE 8: Next Steps ======================= */}
+                <div className="min-w-full h-full flex flex-col bg-slate-900 p-6 sm:p-12 text-white overflow-hidden relative">
+                    <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                        <div className="absolute top-[10%] left-[10%] w-96 h-96 bg-blue-500 rounded-full filter blur-[120px]" />
+                        <div className="absolute bottom-[10%] right-[10%] w-96 h-96 bg-purple-500 rounded-full filter blur-[120px]" />
                     </div>
 
+                    <div className="relative z-10 h-full flex flex-col justify-center items-center text-center max-w-2xl mx-auto">
+                        <div className="w-20 h-20 bg-blue-500 rounded-3xl flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(59,130,246,0.5)]">
+                            <MapPin className="w-10 h-10 text-white" />
+                        </div>
+                        <h2 className="text-4xl sm:text-5xl font-black mb-6">Ready to Explore?</h2>
+                        <p className="text-xl text-slate-300 mb-12 leading-relaxed font-serif italic">
+                            You now know the basics. Now it&apos;s time to see where everything is located on our interactive map.
+                        </p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+                            <Link
+                                href="/interactive-map"
+                                className="inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-xl hover:scale-105 active:scale-95"
+                            >
+                                <MapPin className="w-5 h-5" /> Open Map
+                            </Link>
+                            <button
+                                onClick={() => setCurrentPage(0)}
+                                className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-6 rounded-2xl transition-all backdrop-blur-md"
+                            >
+                                <ChevronLeft className="w-5 h-5" /> Start Over
+                            </button>
+                        </div>
+
+                        <div className="mt-16 pt-8 border-t border-white/10 w-full">
+                            <p className="text-sm text-slate-500 uppercase tracking-widest font-bold">
+                                Amani Pathways • Sovereign Citizenship
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
             {/* Book Navigation Controls */}
@@ -393,8 +399,8 @@ export function WelcomeBook() {
                     onClick={prevPage}
                     disabled={currentPage === 0}
                     className={`flex items-center gap-2 px-5 py-3 rounded-full font-semibold transition-all shadow-sm ${currentPage === 0
-                            ? "text-slate-400 bg-slate-100 cursor-not-allowed opacity-50"
-                            : "text-slate-700 bg-white hover:bg-slate-50 hover:shadow-md border border-slate-200"
+                        ? "text-slate-400 bg-slate-100 cursor-not-allowed opacity-50"
+                        : "text-slate-700 bg-white hover:bg-slate-50 hover:shadow-md border border-slate-200"
                         }`}
                 >
                     <ChevronLeft className="w-5 h-5" /> Back
@@ -422,8 +428,8 @@ export function WelcomeBook() {
                     onClick={nextPage}
                     disabled={currentPage === totalPages - 1}
                     className={`flex items-center gap-2 px-5 py-3 rounded-full font-semibold transition-all shadow-sm ${currentPage === totalPages - 1
-                            ? "text-slate-400 bg-slate-100 cursor-not-allowed opacity-50 hidden md:flex"
-                            : "text-white bg-blue-600 hover:bg-blue-700 hover:shadow-md"
+                        ? "text-slate-400 bg-slate-100 cursor-not-allowed opacity-50 hidden md:flex"
+                        : "text-white bg-blue-600 hover:bg-blue-700 hover:shadow-md"
                         }`}
                 >
                     Next <ChevronRight className="w-5 h-5" />
