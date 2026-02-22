@@ -350,43 +350,42 @@ export function WelcomeBook() {
                             </p>
                         </div>
                     </div>
-                </div>
-
-                {/* ======================= PAGE 8: Next Steps ======================= */}
-                <div className="min-w-full h-full flex flex-col bg-slate-900 p-6 sm:p-12 text-white overflow-hidden relative">
-                    <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                        <div className="absolute top-[10%] left-[10%] w-96 h-96 bg-blue-500 rounded-full filter blur-[120px]" />
-                        <div className="absolute bottom-[10%] right-[10%] w-96 h-96 bg-purple-500 rounded-full filter blur-[120px]" />
-                    </div>
-
-                    <div className="relative z-10 h-full flex flex-col justify-center items-center text-center max-w-2xl mx-auto">
-                        <div className="w-20 h-20 bg-blue-500 rounded-3xl flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(59,130,246,0.5)]">
-                            <MapPin className="w-10 h-10 text-white" />
-                        </div>
-                        <h2 className="text-4xl sm:text-5xl font-black mb-6">Ready to Explore?</h2>
-                        <p className="text-xl text-slate-300 mb-12 leading-relaxed font-serif italic">
-                            You now know the basics. Now it&apos;s time to see where everything is located on our interactive map.
-                        </p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
-                            <Link
-                                href="/interactive-map"
-                                className="inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-xl hover:scale-105 active:scale-95"
-                            >
-                                <MapPin className="w-5 h-5" /> Open Map
-                            </Link>
-                            <button
-                                onClick={() => setCurrentPage(0)}
-                                className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-6 rounded-2xl transition-all backdrop-blur-md"
-                            >
-                                <ChevronLeft className="w-5 h-5" /> Start Over
-                            </button>
+                    {/* ======================= PAGE 8: Next Steps ======================= */}
+                    <div className="min-w-full h-full flex flex-col bg-slate-900 p-6 sm:p-12 text-white overflow-hidden relative">
+                        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                            <div className="absolute top-[10%] left-[10%] w-96 h-96 bg-blue-500 rounded-full filter blur-[120px]" />
+                            <div className="absolute bottom-[10%] right-[10%] w-96 h-96 bg-purple-500 rounded-full filter blur-[120px]" />
                         </div>
 
-                        <div className="mt-16 pt-8 border-t border-white/10 w-full">
-                            <p className="text-sm text-slate-500 uppercase tracking-widest font-bold">
-                                Amani Pathways • Sovereign Citizenship
+                        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center max-w-2xl mx-auto">
+                            <div className="w-20 h-20 bg-blue-500 rounded-3xl flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(59,130,246,0.5)]">
+                                <MapPin className="w-10 h-10 text-white" />
+                            </div>
+                            <h2 className="text-4xl sm:text-5xl font-black mb-6">Ready to Explore?</h2>
+                            <p className="text-xl text-slate-300 mb-12 leading-relaxed font-serif italic">
+                                You now know the basics. Now it&apos;s time to see where everything is located on our interactive map.
                             </p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+                                <Link
+                                    href="/interactive-map"
+                                    className="inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-xl hover:scale-105 active:scale-95"
+                                >
+                                    <MapPin className="w-5 h-5" /> Open Map
+                                </Link>
+                                <button
+                                    onClick={() => setCurrentPage(0)}
+                                    className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-6 rounded-2xl transition-all backdrop-blur-md"
+                                >
+                                    <ChevronLeft className="w-5 h-5" /> Start Over
+                                </button>
+                            </div>
+
+                            <div className="mt-16 pt-8 border-t border-white/10 w-full">
+                                <p className="text-sm text-slate-500 uppercase tracking-widest font-bold">
+                                    Amani Pathways • Sovereign Citizenship
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
