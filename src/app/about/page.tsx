@@ -9,6 +9,7 @@ import {
     Star,
     CheckCircle2,
 } from "lucide-react";
+import TeamPreview from "@/components/TeamPreview";
 
 const values = [
     {
@@ -53,7 +54,7 @@ export default function AboutPage() {
     return (
         <>
             {/* Header */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
+            <section className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-10 right-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 left-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl" />
@@ -200,6 +201,9 @@ export default function AboutPage() {
                     </div>
                 </div>
             </section>
+
+            {/* Meet the Team */}
+            <TeamPreview />
         </>
     );
 }

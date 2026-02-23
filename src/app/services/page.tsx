@@ -12,6 +12,7 @@ import {
     Sparkles,
     AlertTriangle,
 } from "lucide-react";
+import DayInTheLife from "@/components/DayInTheLife";
 
 const accommodation = [
     {
@@ -99,7 +100,7 @@ export default function ServicesPage() {
     return (
         <>
             {/* Header */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
+            <section className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-10 left-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl" />
@@ -214,6 +215,26 @@ export default function ServicesPage() {
                             </div>
                         ))}
                     </div>
+                </div>
+            </section>
+
+            {/* A Day in the Life */}
+            <section className="py-20 sm:py-24 bg-slate-50 relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center max-w-2xl mx-auto mb-14">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-50 text-amber-600 rounded-full text-xs font-semibold mb-4 border border-amber-100">
+                            <Clock className="w-3 h-3" />
+                            Daily Routine
+                        </div>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                            A Day in the Life
+                        </h2>
+                        <p className="mt-4 text-slate-500 text-lg leading-relaxed">
+                            Structure and routine are vital for the young people in our care. While every day varies based on individual needs, here is what a typical day might look like.
+                        </p>
+                    </div>
+
+                    <DayInTheLife />
                 </div>
             </section>
         </>

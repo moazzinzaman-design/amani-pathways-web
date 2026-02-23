@@ -30,24 +30,31 @@ export function InteractiveMap() {
                             <button
                                 key={loc.id}
                                 onClick={() => setActiveLocation(loc)}
-                                className={`absolute group transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 hover:scale-125 hover:z-50 ${activeLocation?.id === loc.id ? "scale-125 z-50 drop-shadow-2xl" : "scale-100 z-30"
+                                className={`absolute group transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${activeLocation?.id === loc.id ? "scale-125 z-50" : "scale-100 z-30 hover:scale-110 hover:z-40"
                                     }`}
                                 style={{ top: `${loc.y}%`, left: `${loc.x}%` }}
                             >
                                 <div className="relative flex items-center justify-center">
+                                    {/* Pulse Animation Behind Pin */}
+                                    <div className={`absolute w-12 h-12 rounded-full animate-ping opacity-20 ${activeLocation?.id === loc.id ? "bg-red-500 opacity-40" : "bg-blue-500"
+                                        }`} />
+
                                     <MapPin
-                                        className={`w-12 h-12 transition-colors duration-300 ${activeLocation?.id === loc.id ? "text-red-600 fill-white drop-shadow-lg" : "text-blue-600 fill-white drop-shadow-md"
-                                            } group-hover:text-red-500`}
+                                        className={`w-12 h-12 relative z-10 transition-colors duration-300 ${activeLocation?.id === loc.id
+                                                ? "text-red-600 fill-white drop-shadow-2xl"
+                                                : "text-blue-600 fill-white drop-shadow-lg group-hover:text-indigo-500"
+                                            }`}
                                         strokeWidth={2}
                                     />
-                                    <div className="absolute -mt-2 text-xl">
+                                    <div className="absolute -mt-2.5 text-xl z-20 hover:scale-125 transition-transform duration-300">
                                         {loc.emoji}
                                     </div>
                                 </div>
 
-                                {/* Tooltip for hover state */}
-                                <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-white text-gray-900 px-3 py-1 rounded-full shadow-lg font-bold text-sm -top-8 left-1/2 -translate-x-1/2 pointer-events-none z-50">
+                                {/* Enhanced Tooltip */}
+                                <div className="absolute opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:-translate-y-1 whitespace-nowrap bg-slate-900/90 backdrop-blur-sm text-white px-4 py-2 rounded-xl shadow-xl font-semibold text-sm -top-12 left-1/2 -translate-x-1/2 pointer-events-none z-50 border border-white/10 flex flex-col items-center">
                                     {loc.name}
+                                    <div className="w-2 h-2 bg-slate-900/90 rotate-45 absolute -bottom-1" />
                                 </div>
                             </button>
                         ))}

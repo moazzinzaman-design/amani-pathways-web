@@ -6,17 +6,70 @@ interface ReferralBody {
     referrerEmail?: string;
     phoneNumber?: string;
     message?: string;
+    turnstileToken?: string;
 }
+
+// Basic in-memory rate limit store (Note: In a serverless environment like Vercel, 
+// this resets per instance/deployment. For true global rate limiting, use Redis/KV).
+const rateLimitStore = new Map<string, { count: number; expiresAt: number }>();
+const RATE_LIMIT_MAX = 5; // Max 5 referrals
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // per hour
 
 export async function POST(request: NextRequest) {
     try {
+        // --- Rate Limiting ---
+        // Get IP directly from headers (Vercel/Cloudflare aware)
+        const ip = request.headers.get("x-forwarded-for") || '127.0.0.1';
+        const now = Date.now();
+
+        const currentLimit = rateLimitStore.get(ip);
+        if (currentLimit && currentLimit.expiresAt > now) {
+            if (currentLimit.count >= RATE_LIMIT_MAX) {
+                return NextResponse.json(
+                    { success: false, error: "Too many referrals submitted from this IP. Please try again later." },
+                    { status: 429 }
+                );
+            }
+            rateLimitStore.set(ip, { ...currentLimit, count: currentLimit.count + 1 });
+        } else {
+            rateLimitStore.set(ip, { count: 1, expiresAt: now + RATE_LIMIT_WINDOW_MS });
+        }
+
         const body: ReferralBody = await request.json();
 
-        const { referrerName, localAuthority, referrerEmail, phoneNumber, message } =
+        const { referrerName, localAuthority, referrerEmail, phoneNumber, message, turnstileToken } =
             body;
 
         // --- Validation ---
         const errors: string[] = [];
+
+        if (!turnstileToken) {
+            return NextResponse.json(
+                { success: false, error: "Security check failed. Please refresh and try again." },
+                { status: 400 }
+            );
+        }
+
+        // Verify Turnstile Token
+        const turnstileVerifyRes = await fetch(
+            "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `secret=${process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA'}&response=${turnstileToken}`,
+            }
+        );
+
+        const turnstileData = await turnstileVerifyRes.json();
+
+        if (!turnstileData.success) {
+            return NextResponse.json(
+                { success: false, error: "Security verification failed." },
+                { status: 400 }
+            );
+        }
 
         if (!referrerName || referrerName.trim().length < 2) {
             errors.push("Referrer name is required (minimum 2 characters).");

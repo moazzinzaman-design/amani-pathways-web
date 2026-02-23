@@ -11,6 +11,8 @@ import {
     ArrowRight,
     Lock,
 } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
+import InteractiveFAQ from "@/components/InteractiveFAQ";
 
 interface FormState {
     referrerName: string;
@@ -18,6 +20,7 @@ interface FormState {
     referrerEmail: string;
     phoneNumber: string;
     message: string;
+    turnstileToken?: string;
 }
 
 export default function ReferralsPage() {
@@ -76,7 +79,7 @@ export default function ReferralsPage() {
     return (
         <>
             {/* Header */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
+            <section className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-10 left-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl animate-float-slow" />
                     <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl animate-float" />
@@ -248,9 +251,18 @@ export default function ReferralsPage() {
                                 />
                             </div>
 
+                            <div className="flex justify-center my-6">
+                                <Turnstile
+                                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+                                    onSuccess={(token) => setForm({ ...form, turnstileToken: token })}
+                                    onError={() => setErrorMsg("Security check failed. Please refresh and try again.")}
+                                    options={{ theme: "light" }}
+                                />
+                            </div>
+
                             <button
                                 type="submit"
-                                disabled={status === "loading"}
+                                disabled={status === "loading" || !form.turnstileToken}
                                 className="group w-full relative flex items-center justify-center gap-2.5 px-6 py-4 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:translate-y-0 overflow-hidden"
                             >
                                 <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -278,6 +290,9 @@ export default function ReferralsPage() {
                     )}
                 </div>
             </section>
+
+            {/* Interactive FAQ Section */}
+            <InteractiveFAQ />
         </>
     );
 }

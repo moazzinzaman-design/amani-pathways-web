@@ -22,6 +22,7 @@ import {
     UserCheck,
     BadgeCheck,
 } from "lucide-react";
+import DownloadableAsset from "@/components/DownloadableAsset";
 
 /* ─── Data ─────────────────────────────────────────────────── */
 
@@ -209,7 +210,7 @@ export default function CommissionersPage() {
     return (
         <>
             {/* Header */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
+            <section className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute top-10 right-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 left-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl" />
@@ -435,26 +436,13 @@ export default function CommissionersPage() {
                                 </div>
                             </div>
 
-                            <div className="p-7 rounded-3xl bg-white border border-slate-100">
-                                <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center mb-4">
-                                    <FileText className="w-5 h-5 text-indigo-600" />
-                                </div>
-                                <h3 className="font-bold text-slate-900 mb-2">
-                                    Statement of Purpose
-                                </h3>
-                                <p className="text-sm text-slate-500 leading-relaxed mb-4">
-                                    Our full Statement of Purpose, detailing our provision,
-                                    staffing model, policies, and Ofsted registration, is available
-                                    to placing authorities on request.
-                                </p>
-                                <a
-                                    href="mailto:referrals@amanipathways.co.uk?subject=Statement of Purpose Request"
-                                    className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
-                                >
-                                    Request a copy
-                                    <ArrowRight className="w-3.5 h-3.5" />
-                                </a>
-                            </div>
+                            <DownloadableAsset
+                                title="Information Pack 2026"
+                                description="A comprehensive guide including our Statement of Purpose, Referral Process, and Pricing Structure overview for Commissioners."
+                                fileName="amani-pathways-info-pack.pdf"
+                                fileSize="2.4 MB"
+                                fileUrl="/documents/amani-pathways-info-pack.pdf" // Placeholder URL
+                            />
                         </div>
                     </div>
                 </div>

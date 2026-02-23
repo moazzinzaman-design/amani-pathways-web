@@ -5,6 +5,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X, Sparkles } from "lucide-react";
+import FocusTrap from "focus-trap-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -14,6 +16,7 @@ const navLinks = [
   { href: "/compliance", label: "Compliance" },
   { href: "/commissioners", label: "Commissioners" },
   { href: "/interactive-map", label: "Map" },
+  { href: "/news", label: "News" },
   { href: "/referrals", label: "Referrals" },
 ];
 
@@ -87,9 +90,13 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            <div className="mx-3 flex items-center">
+              <ThemeToggle />
+            </div>
+
             <Link
               href="/referrals"
-              className="ml-3 group relative inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-md shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-0.5 overflow-hidden"
+              className="group relative inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-md shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-0.5 overflow-hidden"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <Sparkles className="w-3.5 h-3.5 relative" />
@@ -97,50 +104,61 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
-            aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
-          >
-            {mobileOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
+          {/* Mobile Right Icons */}
+          <div className="lg:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-2.5 rounded-xl text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
+              aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
+            >
+              {mobileOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 animate-fade-up">
-          <div className="px-4 py-4 space-y-1">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive
-                    ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md"
-                    : "text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
-                    }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-            <Link
-              href="/referrals"
-              onClick={() => setMobileOpen(false)}
-              className="block mt-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-teal-500 text-white text-sm font-semibold rounded-xl text-center shadow-md"
-            >
-              ✨ Make a Referral
-            </Link>
+        <FocusTrap
+          active={mobileOpen}
+          focusTrapOptions={{
+            onDeactivate: () => setMobileOpen(false),
+            clickOutsideDeactivates: true,
+          }}
+        >
+          <div className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 animate-fade-up">
+            <div className="px-4 py-4 space-y-1">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive
+                      ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md"
+                      : "text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
+                      }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <Link
+                href="/referrals"
+                onClick={() => setMobileOpen(false)}
+                className="block mt-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-teal-500 text-white text-sm font-semibold rounded-xl text-center shadow-md"
+              >
+                ✨ Make a Referral
+              </Link>
+            </div>
           </div>
-        </div>
+        </FocusTrap>
       )}
     </nav>
   );

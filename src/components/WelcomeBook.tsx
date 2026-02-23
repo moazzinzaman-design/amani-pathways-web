@@ -22,7 +22,9 @@ import {
     GraduationCap,
     Globe,
     Copy,
-    Check
+    Check,
+    Volume2,
+    VolumeX
 } from "lucide-react";
 
 export function WelcomeBook() {
@@ -50,18 +52,61 @@ export function WelcomeBook() {
         setTimeout(() => setCopied(false), 2000);
     };
 
+    // Improvement #12: Text-to-Speech (Read Aloud)
+    const [isSpeaking, setIsSpeaking] = useState(false);
+    const contentRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
+    const toggleSpeech = () => {
+        if (!("speechSynthesis" in window)) {
+            alert("Sorry, your browser doesn't support text-to-speech.");
+            return;
+        }
+
+        if (isSpeaking) {
+            window.speechSynthesis.cancel();
+            setIsSpeaking(false);
+        } else {
+            const currentContent = contentRefs.current[currentPage]?.innerText || "No text found on this page.";
+            const utterance = new SpeechSynthesisUtterance(currentContent);
+            utterance.rate = 0.9; // Slightly slower for clearer English understanding
+            utterance.onend = () => setIsSpeaking(false);
+            window.speechSynthesis.speak(utterance);
+            setIsSpeaking(true);
+        }
+    };
+
+    // Stop speaking when page changes
+    useEffect(() => {
+        if (isSpeaking && "speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+            setIsSpeaking(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
+
     return (
         <div className="w-full max-w-4xl mx-auto min-h-[70vh] flex flex-col items-center justify-center relative bg-white/50 backdrop-blur-xl rounded-3xl shadow-2xl border border-white p-4 sm:p-8">
 
             {/* Book Container with overflow hidden for sliding effect */}
             <div className="relative w-full h-full min-h-[600px] overflow-hidden rounded-2xl bg-white shadow-inner">
+
+                {/* Global Read Aloud Button */}
+                <button
+                    onClick={toggleSpeech}
+                    className={`absolute top-4 right-4 z-50 p-3 rounded-full shadow-lg transition-all duration-300 ${isSpeaking ? "bg-red-500 text-white animate-pulse" : "bg-white/80 backdrop-blur-md text-slate-700 hover:bg-white"
+                        }`}
+                    aria-label={isSpeaking ? "Stop reading" : "Read page aloud"}
+                >
+                    {isSpeaking ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                </button>
+
                 <div
                     className="absolute inset-0 flex transition-transform duration-700 ease-in-out"
                     style={{ transform: `translateX(-${currentPage * 100}%)` }}
                 >
 
                     {/* ======================= PAGE 1: The Cover & Welcome ======================= */}
-                    <div className="min-w-full h-full flex flex-col relative bg-sky-50">
+                    <div ref={(el) => { contentRefs.current[0] = el; }} className="min-w-full h-full flex flex-col relative bg-sky-50">
                         <div className="relative h-1/2 w-full bg-slate-200 overflow-hidden rounded-t-2xl">
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-300 to-green-100 mix-blend-multiply opacity-50 z-10" />
                             <div className="absolute inset-0 flex items-center justify-center text-slate-400 font-medium z-0 px-12 text-center">
@@ -100,7 +145,7 @@ export function WelcomeBook() {
                     </div>
 
                     {/* ======================= PAGE 2: The Essentials ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-slate-50 p-6 sm:p-12 overflow-y-auto">
+                    <div ref={(el) => { contentRefs.current[1] = el; }} className="min-w-full h-full flex flex-col bg-slate-50 p-6 sm:p-12 overflow-y-auto">
                         <h2 className="text-3xl font-bold text-slate-800 mb-2">The Essentials</h2>
                         <p className="text-slate-500 mb-8">Quick info for your first few hours in your new home.</p>
 
@@ -163,7 +208,7 @@ export function WelcomeBook() {
                     </div>
 
                     {/* ======================= PAGE 3: Education & Learning ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-sky-50 p-6 sm:p-12 overflow-y-auto">
+                    <div ref={(el) => { contentRefs.current[2] = el; }} className="min-w-full h-full flex flex-col bg-sky-50 p-6 sm:p-12 overflow-y-auto">
                         <div className="flex items-center gap-4 mb-2">
                             <GraduationCap className="w-10 h-10 text-blue-600" />
                             <h2 className="text-3xl font-bold text-slate-800">Education & Future</h2>
@@ -206,7 +251,7 @@ export function WelcomeBook() {
                     </div>
 
                     {/* ======================= PAGE 4: Health & Org ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-red-50 p-6 sm:p-12 overflow-y-auto">
+                    <div ref={(el) => { contentRefs.current[3] = el; }} className="min-w-full h-full flex flex-col bg-red-50 p-6 sm:p-12 overflow-y-auto">
                         <div className="flex items-center gap-4 mb-2">
                             <Heart className="w-10 h-10 text-red-500" />
                             <h2 className="text-3xl font-bold text-slate-800">Health & Wellbeing</h2>
@@ -252,7 +297,7 @@ export function WelcomeBook() {
                     </div>
 
                     {/* ======================= PAGE 5: Community & Support ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-purple-50 p-6 sm:p-12 overflow-y-auto">
+                    <div ref={(el) => { contentRefs.current[4] = el; }} className="min-w-full h-full flex flex-col bg-purple-50 p-6 sm:p-12 overflow-y-auto">
                         <div className="flex items-center gap-4 mb-2">
                             <Users className="w-10 h-10 text-purple-600" />
                             <h2 className="text-3xl font-bold text-slate-800">Community & Support</h2>
@@ -290,7 +335,7 @@ export function WelcomeBook() {
                     </div>
 
                     {/* ======================= PAGE 6: Life in Halifax ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-emerald-50 p-6 sm:p-12 overflow-y-auto">
+                    <div ref={(el) => { contentRefs.current[5] = el; }} className="min-w-full h-full flex flex-col bg-emerald-50 p-6 sm:p-12 overflow-y-auto">
                         <div className="flex items-center gap-4 mb-2">
                             <ShoppingBag className="w-10 h-10 text-emerald-600" />
                             <h2 className="text-3xl font-bold text-slate-800">Life in Halifax</h2>
@@ -339,7 +384,7 @@ export function WelcomeBook() {
                     </div>
 
                     {/* ======================= PAGE 7: Fun & Faith ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-orange-50 p-6 sm:p-12 overflow-y-auto">
+                    <div ref={(el) => { contentRefs.current[6] = el; }} className="min-w-full h-full flex flex-col bg-orange-50 p-6 sm:p-12 overflow-y-auto">
                         <div className="flex items-center gap-4 mb-2">
                             <Church className="w-10 h-10 text-orange-500" />
                             <h2 className="text-3xl font-bold text-slate-800">Fun & Faith</h2>
@@ -380,7 +425,7 @@ export function WelcomeBook() {
                         </div>
                     </div>
                     {/* ======================= PAGE 8: Next Steps ======================= */}
-                    <div className="min-w-full h-full flex flex-col bg-slate-900 p-6 sm:p-12 text-white overflow-hidden relative">
+                    <div ref={(el) => { contentRefs.current[7] = el; }} className="min-w-full h-full flex flex-col bg-slate-900 p-6 sm:p-12 text-white overflow-hidden relative">
                         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                             <div className="absolute top-[10%] left-[10%] w-96 h-96 bg-blue-500 rounded-full filter blur-[120px]" />
                             <div className="absolute bottom-[10%] right-[10%] w-96 h-96 bg-purple-500 rounded-full filter blur-[120px]" />

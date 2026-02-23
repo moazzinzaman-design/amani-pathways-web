@@ -7,12 +7,18 @@ import ScrollReveal from "@/components/ScrollReveal";
 import CursorSpotlight from "@/components/CursorSpotlight";
 import BackToTop from "@/components/BackToTop";
 import ScrollProgress from "@/components/ScrollProgress";
+import CookieBanner from "@/components/CookieBanner";
+import HighContrastToggle from "@/components/HighContrastToggle";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
+
 
 export const metadata: Metadata = {
   title: "Amani Pathways | Supported Accommodation for UASC",
@@ -50,6 +56,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+export const revalidate = 86400; // 24 hours ISR caching globally
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -57,17 +65,48 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
-        <ScrollProgress />
-        <a href="#main-content" className="skip-to-content">
-          Skip to content
-        </a>
-        <ScrollReveal />
-        <CursorSpotlight />
-        <Navbar />
-        <main id="main-content" className="min-h-screen">{children}</main>
-        <Footer />
-        <BackToTop />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Amani Pathways Ltd",
+              "description": "Trauma-informed, Ofsted-regulated supported accommodation for Unaccompanied Asylum-Seeking Children aged 16-17.",
+              "url": "https://amanipathways.co.uk",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Halifax",
+                "addressRegion": "West Yorkshire",
+                "addressCountry": "UK"
+              },
+              "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "West Yorkshire"
+              }
+            })
+          }}
+        />
+      </head>
+      <body className={`${inter.variable} font-sans antialiased bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ScrollProgress />
+          <a href="#main-content" className="skip-to-content">
+            Skip to content
+          </a>
+          <ScrollReveal />
+          <CursorSpotlight />
+          <Navbar />
+          <main id="main-content" className="min-h-screen">
+            <Breadcrumbs />
+            {children}
+          </main>
+          <Footer />
+          <BackToTop />
+          <CookieBanner />
+          <HighContrastToggle />
+        </ThemeProvider>
       </body>
     </html>
   );

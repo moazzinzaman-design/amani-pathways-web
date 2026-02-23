@@ -13,66 +13,28 @@ import CountUp from "@/components/CountUp";
 import Typewriter from "@/components/Typewriter";
 import { pillars, highlights, coreValues, pathwaySteps, heroWords } from "@/data/homeData";
 
-/* ─── UPGRADE #8 — Parallax orbs hook ─────────────────────── */
-function useParallax() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const orb1 = el.querySelector<HTMLElement>("[data-parallax='1']");
-    const orb2 = el.querySelector<HTMLElement>("[data-parallax='2']");
-    const orb3 = el.querySelector<HTMLElement>("[data-parallax='3']");
-
-    let rafId: number | null = null;
-    let lastScroll = window.scrollY;
-    let dirty = false;
-
-    const handleScroll = () => {
-      lastScroll = window.scrollY;
-      dirty = true;
-    };
-
-    const tick = () => {
-      if (dirty) {
-        dirty = false;
-        if (lastScroll < window.innerHeight * 1.5) {
-          if (orb1) orb1.style.transform = `translateY(${lastScroll * 0.18}px)`;
-          if (orb2) orb2.style.transform = `translateY(${lastScroll * -0.12}px)`;
-          if (orb3) orb3.style.transform = `translateY(${lastScroll * 0.09}px)`;
-        }
-      }
-      rafId = requestAnimationFrame(tick);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    rafId = requestAnimationFrame(tick);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafId !== null) cancelAnimationFrame(rafId);
-    };
-  }, []);
-  return ref;
-}
+import { motion, useScroll, useTransform } from "framer-motion";
 
 /* ─── Page ──────────────────────────────────────────────────── */
 
 export default function HomePage() {
-  const heroRef = useParallax();
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 1000], [0, 180]);
+  const y2 = useTransform(scrollY, [0, 1000], [0, -120]);
+  const y3 = useTransform(scrollY, [0, 1000], [0, 90]);
 
   return (
     <>
       {/* ── HERO ── with spotlight + parallax orbs ──────────── */}
       <section
-        ref={heroRef}
-        className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 -mt-16 lg:-mt-18 pt-16 lg:pt-18 spotlight-container"
+        className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 -mt-16 lg:-mt-18 pt-16 lg:pt-18 spotlight-container"
       >
         <div className="spotlight" style={{ opacity: 0 }} />
 
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div data-parallax="1" className="absolute top-20 left-10 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-3xl animate-float" />
-          <div data-parallax="2" className="absolute top-40 right-20 w-[400px] h-[400px] bg-teal-500/15 rounded-full blur-3xl animate-float-slow" />
-          <div data-parallax="3" className="absolute bottom-10 left-1/3 w-[300px] h-[300px] bg-amber-500/10 rounded-full blur-3xl animate-float" />
+          <motion.div style={{ y: y1 }} className="absolute top-20 left-10 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-3xl animate-float" />
+          <motion.div style={{ y: y2 }} className="absolute top-40 right-20 w-[400px] h-[400px] bg-teal-500/15 rounded-full blur-3xl animate-float-slow" />
+          <motion.div style={{ y: y3 }} className="absolute bottom-10 left-1/3 w-[300px] h-[300px] bg-amber-500/10 rounded-full blur-3xl animate-float" />
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         </div>
 
