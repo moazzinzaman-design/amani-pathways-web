@@ -436,13 +436,44 @@ export default function CommissionersPage() {
                                 </div>
                             </div>
 
-                            <DownloadableAsset
-                                title="Information Pack 2026"
-                                description="A comprehensive guide including our Statement of Purpose, Referral Process, and Pricing Structure overview for Commissioners."
-                                fileName="amani-pathways-info-pack.pdf"
-                                fileSize="2.4 MB"
-                                fileUrl="/documents/amani-pathways-info-pack.pdf" // Placeholder URL
-                            />
+                            <div className="space-y-4 pt-4">
+                                <h4 className="font-bold text-slate-800 text-lg mb-2">Key Documents</h4>
+                                <DownloadableAsset
+                                    title="Information Pack 2026"
+                                    description="A summary of our Statement of Purpose, capacity, and core offer for Commissioners."
+                                    fileName="Amani_Pathways_Information_Pack_2026.zip"
+                                    fileSize="4.2 MB"
+                                    fileUrl="/documents/Amani_Pathways_Information_Pack_2026.zip"
+                                />
+                                <DownloadableAsset
+                                    title="Statement of Purpose"
+                                    description="Our full Ofsted-aligned Statement of Purpose detailing our ethos and provisions."
+                                    fileName="Amani_Pathways_Statement_of_Purpose_2026.pdf"
+                                    fileSize="1.1 MB"
+                                    fileUrl="/documents/Amani_Pathways_Statement_of_Purpose_2026.pdf"
+                                />
+                                <DownloadableAsset
+                                    title="Safeguarding Policy"
+                                    description="Our comprehensive approach to protecting young people, updated for 2026 guidelines."
+                                    fileName="Amani_Pathways_Safeguarding_Policy.pdf"
+                                    fileSize="850 KB"
+                                    fileUrl="/documents/Amani_Pathways_Safeguarding_Policy.pdf"
+                                />
+                                <DownloadableAsset
+                                    title="Resident's Welcome Pack"
+                                    description="A preview of the guide given to every young person upon arriving at Amani Pathways."
+                                    fileName="Amani_Pathways_Welcome_Pack.pdf"
+                                    fileSize="2.8 MB"
+                                    fileUrl="/documents/Amani_Pathways_Welcome_Pack.pdf"
+                                />
+                                <DownloadableAsset
+                                    title="Pricing & Fee Matrix"
+                                    description="Detailed breakdown of our core placement costs and additional support hourly rates."
+                                    fileName="Amani_Pathways_Fee_Matrix.pdf"
+                                    fileSize="450 KB"
+                                    fileUrl="/documents/Amani_Pathways_Fee_Matrix.pdf"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
