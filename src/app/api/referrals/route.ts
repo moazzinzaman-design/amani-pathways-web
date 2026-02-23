@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabase";
 
 interface ReferralBody {
     referrerName?: string;
@@ -98,15 +99,31 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // In production, this would send an email, write to a database, etc.
-        console.log("📩 New referral received:", {
-            referrerName: referrerName!.trim(),
-            localAuthority: localAuthority!.trim(),
-            referrerEmail: referrerEmail!.trim(),
-            phoneNumber: phoneNumber!.trim(),
-            messageLength: message!.trim().length,
-            timestamp: new Date().toISOString(),
-        });
+        // In production, insert into Supabase Database
+        const { error: dbError } = await supabaseAdmin
+            .from('referrals')
+            .insert({
+                referrer_name: referrerName!.trim(),
+                referrer_email: referrerEmail!.trim(),
+                referrer_phone: phoneNumber!.trim(),
+                referrer_organization: localAuthority!.trim(),
+                referrer_role: 'Quick Referral', // From basic form
+                yp_first_name: 'Pending', // From basic form
+                yp_last_name: 'Pending',
+                yp_dob: '2010-01-01', // Dummy data for required fields from basic form
+                placement_type: 'Supported Accommodation',
+                funding_authority: localAuthority!.trim(),
+                expected_start_date: new Date().toISOString().split('T')[0],
+                additional_info: message!.trim()
+            });
+
+        if (dbError) {
+            console.error("Supabase Error:", dbError);
+            return NextResponse.json(
+                { success: false, error: "Database error. Failed to save referral. Please try again." },
+                { status: 500 }
+            );
+        }
 
         return NextResponse.json(
             {
