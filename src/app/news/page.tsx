@@ -9,37 +9,37 @@ import { ArrowRight, Calendar, User, Tag, Sparkles, Clock } from "lucide-react";
 const newsItems = [
     {
         id: "1",
-        title: "Amani Pathways Awarded Outstanding by Ofsted",
-        excerpt: "We are thrilled to announce that following our recent inspection, our 5-bedroom supported accommodation provision has been rated Outstanding across all areas.",
+        title: "Amani Pathways Progresses Towards Ofsted Registration",
+        excerpt: "We are pleased to announce that our comprehensive registration application with Ofsted is well underway. We are working diligently to ensure all our policies, procedures, and facilities exceed regulatory standards in preparation for our future opening.",
         category: "Announcements",
-        date: "October 15, 2025",
+        date: "February 23, 2026",
         author: "Amani Management Team",
         image: "/images/halifax-market.png", // Using existing placeholder images
-        readTime: "3 min read"
-    },
-    {
-        id: "2",
-        title: "New ESOL Partnership Launched with Calderdale College",
-        excerpt: "To further support our young people, we have established a direct referral pathway with Calderdale College, ensuring faster access to crucial English language courses.",
-        category: "Partnerships",
-        date: "September 28, 2025",
-        author: "Education Coordinator",
-        image: "/images/education-halifax.png",
         readTime: "2 min read"
     },
     {
+        id: "2",
+        title: "Finalizing Our Custom-Built Management Portal",
+        excerpt: "Our digital infrastructure is nearing completion! The bespoke Amani Pathways portal will soon allow local authorities to seamlessly submit secure, GDPR-compliant referrals and track placement progress in real-time.",
+        category: "Technology",
+        date: "February 15, 2026",
+        author: "Operations Team",
+        image: "/images/welcome-key.png",
+        readTime: "3 min read"
+    },
+    {
         id: "3",
-        title: "Summer Integration Program: Cooking from Home",
-        excerpt: "Last week, our residents came together to cook traditional dishes from their home countries, sharing culture, stories, and building a stronger sense of community within the home.",
-        category: "Resident Life",
-        date: "August 12, 2025",
-        author: "Key Worker Sarah",
+        title: "Property Preparation & Safety Upgrades Completed",
+        excerpt: "Our flagship 5-bedroom home in Halifax has just finalized its interior preparations. From enhanced fire safety systems to developing warm, welcoming, trauma-informed spaces, the property is fully prepared to welcome its first residents.",
+        category: "Property",
+        date: "January 30, 2026",
+        author: "Facilities Management",
         image: "/images/halifax-park.png",
-        readTime: "4 min read"
+        readTime: "2 min read"
     }
 ];
 
-const categories = ["All", "Announcements", "Partnerships", "Resident Life"];
+const categories = ["All", "Announcements", "Property", "Technology"];
 
 export default function NewsPage() {
     const [activeCategory, setActiveCategory] = useState("All");
@@ -133,13 +133,13 @@ export default function NewsPage() {
                                             </div>
                                             {news.author}
                                         </div>
-                                        <Link
-                                            href={`/news/${news.id}`}
-                                            className="inline-flex items-center gap-1.5 text-sm font-bold text-indigo-600 group/link"
+                                        {/* Link disabled for pre-launch placeholder articles */}
+                                        <div
+                                            className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-400 group/link cursor-not-allowed"
                                         >
                                             Read More
-                                            <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                                        </Link>
+                                            <ArrowRight className="w-4 h-4" />
+                                        </div>
                                     </div>
                                 </div>
                             </article>
