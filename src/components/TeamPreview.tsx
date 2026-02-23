@@ -8,7 +8,7 @@ const teamMembers = [
         name: "Moazzin Zaman",
         role: "Director & Incoming Registered Manager",
         bio: "At 24, Moazzin leads Amani Pathways with a fresh perspective and a deep dedication to supporting young people. He is currently transitioning into the role of Registered Manager, ensuring our provisions consistently meet the highest standards of care and compliance.",
-        image: "/images/moazzin.png",
+        image: "/images/moazzin.jpg",
         credentials: ["Director", "Incoming Registered Manager"],
         email: "moazzin@amanipathways.co.uk",
     }
