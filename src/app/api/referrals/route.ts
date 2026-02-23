@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { resend, getReferralEmailHtml } from "@/lib/resend";
 
 interface ReferralBody {
     referrerName?: string;
@@ -123,6 +124,22 @@ export async function POST(request: NextRequest) {
                 { success: false, error: "Database error. Failed to save referral. Please try again." },
                 { status: 500 }
             );
+        }
+
+        // Send Confirmation Email
+        try {
+            const isEnquiry = body.message && body.message.toLowerCase().includes("enquiry"); // Rough heuristic 
+
+            await resend.emails.send({
+                from: "Amani Pathways <onboarding@resend.dev>", // Must use onboarding domain until amanipathways.co.uk is verified on Resend
+                to: referrerEmail!.trim(),
+                replyTo: "amanipathways@outlook.com",
+                subject: isEnquiry ? "Enquiry Received - Amani Pathways" : "Referral Received - Amani Pathways",
+                html: getReferralEmailHtml(referrerName!.trim(), !!isEnquiry)
+            });
+        } catch (emailError) {
+            console.error("Failed to send confirmation email:", emailError);
+            // We do not fail the whole request if the email fails, since the database insert succeeded.
         }
 
         return NextResponse.json(
