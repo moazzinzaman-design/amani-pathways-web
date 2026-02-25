@@ -11,8 +11,10 @@ export interface MapLocation {
     funThings: string[];
     transport: TransportTimes;
     emoji: string;
-    x: number; // Percentage from left
-    y: number; // Percentage from top
+    lat: number;  // Real GPS latitude
+    lng: number;  // Real GPS longitude
+    x: number;   // Percentage from left (legacy, kept for compat)
+    y: number;   // Percentage from top (legacy, kept for compat)
 }
 
 export const mapLocations: MapLocation[] = [
@@ -31,6 +33,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "🏭",
+        lat: 53.7280, lng: -1.8582,
         x: 43,
         y: 5
     },
@@ -48,6 +51,7 @@ export const mapLocations: MapLocation[] = [
             car: "2 mins"
         },
         emoji: "🏛️",
+        lat: 53.7244, lng: -1.8604,
         x: 38,
         y: 32
     },
@@ -66,6 +70,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "⛪",
+        lat: 53.7207, lng: -1.8555,
         x: 92,
         y: 45
     },
@@ -82,6 +87,7 @@ export const mapLocations: MapLocation[] = [
             walking: "Right in the center",
         },
         emoji: "🛍️",
+        lat: 53.7229, lng: -1.8610,
         x: 43,
         y: 61
     },
@@ -100,6 +106,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "🏛️✨",
+        lat: 53.7228, lng: -1.8645,
         x: 68,
         y: 64
     },
@@ -118,12 +125,13 @@ export const mapLocations: MapLocation[] = [
             car: "3 mins"
         },
         emoji: "🎭",
+        lat: 53.7236, lng: -1.8620,
         x: 28,
         y: 75
     },
     {
         id: "eureka",
-        name: "Eureka! The National Children's Museum",
+        name: "Eureka! The Children's Museum",
         description: "While it's primarily for younger kids, the building and the massive park surrounding it are a great landmark right next to the train station.",
         funThings: [
             "Hang out in the large public park areas right outside 🌳",
@@ -135,6 +143,7 @@ export const mapLocations: MapLocation[] = [
             public: "Next to Train Station",
         },
         emoji: "💡",
+        lat: 53.7262, lng: -1.8700,
         x: 89,
         y: 90
     },
@@ -153,6 +162,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "⚽",
+        lat: 53.7189, lng: -1.8707,
         x: 13,
         y: 94
     },
@@ -171,6 +181,7 @@ export const mapLocations: MapLocation[] = [
             car: "10 mins"
         },
         emoji: "🌳",
+        lat: 53.7318, lng: -1.8281,
         x: 23,
         y: 15
     }

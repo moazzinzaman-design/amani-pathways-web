@@ -89,8 +89,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body className={`${inter.variable} font-sans antialiased noise-bg text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <ScrollProgress />
           <a href="#main-content" className="skip-to-content">
             Skip to content

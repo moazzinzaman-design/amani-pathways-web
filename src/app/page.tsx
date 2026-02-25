@@ -11,6 +11,9 @@ import {
 } from "lucide-react";
 import CountUp from "@/components/CountUp";
 import Typewriter from "@/components/Typewriter";
+import ParticleHeroBackground from "@/components/ParticleHeroBackground";
+import SweepRevealText from "@/components/SweepRevealText";
+import Tilt from "react-parallax-tilt";
 import { pillars, highlights, coreValues, pathwaySteps, heroWords } from "@/data/homeData";
 
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -27,15 +30,18 @@ export default function HomePage() {
     <>
       {/* ── HERO ── with spotlight + parallax orbs ──────────── */}
       <section
-        className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 -mt-16 lg:-mt-18 pt-16 lg:pt-18 spotlight-container"
+        className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-950 -mt-16 lg:-mt-18 pt-16 lg:pt-18 spotlight-container"
       >
         <div className="spotlight" style={{ opacity: 0 }} />
 
+        {/* Futuristic Interactive Particles */}
+        <ParticleHeroBackground />
+
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div style={{ y: y1 }} className="absolute top-20 left-10 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-3xl animate-float" />
-          <motion.div style={{ y: y2 }} className="absolute top-40 right-20 w-[400px] h-[400px] bg-teal-500/15 rounded-full blur-3xl animate-float-slow" />
-          <motion.div style={{ y: y3 }} className="absolute bottom-10 left-1/3 w-[300px] h-[300px] bg-amber-500/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+          <motion.div style={{ y: y1 }} className="absolute top-20 left-10 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-3xl animate-float" />
+          <motion.div style={{ y: y2 }} className="absolute top-40 right-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl animate-float-slow" />
+          <motion.div style={{ y: y3 }} className="absolute bottom-10 left-1/3 w-[300px] h-[300px] bg-violet-600/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
@@ -45,35 +51,48 @@ export default function HomePage() {
               Ofsted Regulated • Halifax, West Yorkshire
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-[1.1] tracking-tight animate-fade-up" style={{ animationDelay: "0.08s" }}>
-              Empowering Young People to Build{" "}
-              <span className="gradient-text">
-                <Typewriter words={heroWords} typeSpeed={55} deleteSpeed={30} pauseAfter={2400} />
-              </span>
-            </h1>
+            <div className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-[1.1] tracking-tight relative z-20">
+              <SweepRevealText delay={0.1}>
+                Empowering Young People
+              </SweepRevealText>
+              <SweepRevealText delay={0.3}>
+                to Build <span className="gradient-text">
+                  <Typewriter words={heroWords} typeSpeed={55} deleteSpeed={30} pauseAfter={2400} />
+                </span>
+              </SweepRevealText>
+            </div>
 
-            <p className="mt-6 text-lg sm:text-xl text-slate-300/90 leading-relaxed max-w-2xl animate-fade-up" style={{ animationDelay: "0.16s" }}>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="mt-6 text-lg sm:text-xl text-slate-300/90 leading-relaxed max-w-2xl relative z-20"
+            >
               Amani Pathways provides trauma-informed, high-quality supported
               accommodation for Unaccompanied Asylum-Seeking Children aged 16–17,
               helping them navigate their journey towards independence, safety,
               and belonging.
-            </p>
+            </motion.p>
 
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 animate-fade-up" style={{ animationDelay: "0.24s" }}>
-              <Link
-                href="/referrals"
-                className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-indigo-500 via-indigo-500 to-teal-500 text-white font-semibold rounded-2xl transition-all duration-300 shadow-xl shadow-indigo-500/25 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-1 overflow-hidden"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <span className="relative">Make a Referral</span>
-                <ArrowRight className="w-4 h-4 relative group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-2xl transition-all duration-300 border border-white/20 hover:border-white/30 backdrop-blur-sm"
-              >
-                Learn About Us
-              </Link>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 animate-fade-up z-20 relative" style={{ animationDelay: "0.24s" }}>
+              <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} glareEnable={true} glareMaxOpacity={0.45} glareColor="#5eead4" glarePosition="all" glareBorderRadius="16px" transitionSpeed={2000}>
+                <Link
+                  href="/referrals"
+                  className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white font-semibold rounded-2xl transition-all duration-300 shadow-[0_0_30px_rgba(99,102,241,0.3)] hover:shadow-[0_0_50px_rgba(45,212,191,0.5)] overflow-hidden border border-white/10 w-full sm:w-auto"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <span className="relative z-10">Make a Referral</span>
+                  <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Tilt>
+              <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} transitionSpeed={2000}>
+                <Link
+                  href="/about"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 text-slate-100 font-semibold rounded-2xl transition-all duration-300 border border-white/10 hover:border-white/30 backdrop-blur-xl hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                >
+                  Learn About Us
+                </Link>
+              </Tilt>
             </div>
           </div>
 
@@ -120,136 +139,165 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── VALUES & APPROACH ────────────────────────────────── */}
-      <section className="py-20 sm:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl mx-auto mb-16 reveal">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-rose-50 text-rose-600 rounded-full text-xs font-semibold mb-4">
-            <Heart className="w-3 h-3" />
+      {/* ── VALUES & APPROACH (Infinite Marquee) ───────────────────── */}
+      <section className="py-24 sm:py-32 bg-slate-950 overflow-hidden relative">
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-rose-600/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl mx-auto mb-16 reveal relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-full text-xs font-bold tracking-wider uppercase mb-6">
+            <Heart className="w-3.5 h-3.5" />
             Our Values & Approach
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
             What We Stand <span className="gradient-text">For</span>
           </h2>
-          <p className="mt-4 text-slate-500 text-lg leading-relaxed">
+          <p className="mt-6 text-slate-400 text-lg leading-relaxed">
             Six core principles guide everything we do — from day-to-day care decisions to long-term planning.
           </p>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {coreValues.map((value, i) => (
-            <div
-              key={value.title}
-              className={`reveal card-shimmer animated-border group relative p-7 rounded-3xl bg-white border ${value.border} card-hover overflow-hidden stagger-${i + 1}`}
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 rounded-3xl`} />
-              <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                <value.icon className="w-6 h-6 text-white" />
-              </div>
-              <span className="absolute top-5 right-6 text-6xl font-black text-slate-900/[0.04] select-none">
-                {(i + 1).toString().padStart(2, "0")}
-              </span>
-              <h3 className="relative text-xl font-bold text-slate-900 mb-2">{value.title}</h3>
-              <p className="relative text-sm text-slate-500 leading-relaxed">{value.description}</p>
-            </div>
-          ))}
-        </div>
+        {/* Marquee Container */}
+        <div className="relative w-full overflow-hidden flex z-10 py-10">
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-950 to-transparent z-20 pointer-events-none fade-edges" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-950 to-transparent z-20 pointer-events-none fade-edges" />
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 p-8 sm:p-10 spotlight-container reveal">
-          <div className="spotlight" style={{ opacity: 0 }} />
-          <div className="absolute top-0 right-0 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-56 h-56 bg-indigo-500/15 rounded-full blur-3xl" />
-          <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8">
-            <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full text-teal-300 text-xs font-medium mb-4">
-                <Lock className="w-3 h-3" />
-                Our Commitment
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
-                Trauma-Informed at Every Level
-              </h3>
-              <p className="text-slate-300 text-base leading-relaxed max-w-xl">
-                Our entire team — from senior management to support workers — is trained in trauma-informed practice.
-                We recognise that behaviour is communication, and respond with compassion rather than consequence.
-              </p>
-            </div>
-            <Link href="/about" className="shrink-0 group inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-2xl border border-white/20 hover:border-white/30 transition-all duration-300">
-              Read More <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-        </section>
-      </section>
-
-      {/* ── PATHWAY TO INDEPENDENCE ──────────────────────────── */}
-      <section className="py-20 sm:py-32 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl mx-auto mb-16 reveal">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs font-semibold mb-4">
-            <Compass className="w-3 h-3" />
-            The Journey
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-            The Pathway to <span className="gradient-text">Independence</span>
-          </h2>
-          <p className="mt-4 text-slate-500 text-lg">
-            A structured, compassionate journey from first arrival to confident, independent living.
-          </p>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="hidden lg:block absolute top-14 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-indigo-200 via-teal-200 to-violet-200" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4">
-            {pathwaySteps.map((step, i) => (
-              <div key={step.step} className={`reveal-scale relative flex flex-col items-center text-center group stagger-${i + 1}`} style={{ transitionDelay: `${i * 100}ms` }}>
-                <div className={`relative z-10 w-28 h-28 rounded-full bg-gradient-to-br ${step.color} flex flex-col items-center justify-center shadow-xl ${step.glow} mb-5 group-hover:scale-110 transition-all duration-500`}>
-                  <step.icon className="w-7 h-7 text-white mb-1" />
-                  <span className="text-white/70 text-[10px] font-bold tracking-widest">{step.step}</span>
+          <div className="flex w-max animate-marquee gap-6 items-stretch px-6">
+            {[...coreValues, ...coreValues].map((value, i) => (
+              <div
+                key={`${value.title}-${i}`}
+                className="w-[320px] sm:w-[400px] shrink-0 relative p-8 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/5 hover:border-white/20 transition-all duration-300 shadow-2xl flex flex-col justify-start"
+              >
+                <div className={`absolute -top-4 -right-4 w-32 h-32 bg-gradient-to-br ${value.gradient} opacity-10 blur-2xl rounded-full`} />
+                <div className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center mb-6 shadow-xl shadow-slate-950/50`}>
+                  <value.icon className="w-8 h-8 text-white" />
                 </div>
-                {i < pathwaySteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-14 -right-3 z-20">
-                    <ChevronRight className="w-6 h-6 text-slate-300" />
-                  </div>
-                )}
-                <h3 className="text-base font-bold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed max-w-[180px]">{step.description}</p>
+                <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{value.title}</h3>
+                <p className="text-base text-slate-400 leading-relaxed font-medium">{value.description}</p>
+
+                <span className="absolute bottom-6 right-8 text-8xl font-black text-white/[0.02] select-none pointer-events-none">
+                  {((i % coreValues.length) + 1).toString().padStart(2, "0")}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-12 text-center reveal">
-          <Link href="/commissioners" className="group inline-flex items-center gap-2.5 px-8 py-4 bg-gradient-to-r from-indigo-600 to-teal-500 text-white font-semibold rounded-2xl shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-0.5 transition-all duration-300">
-            Commissioner Information <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 relative overflow-hidden rounded-[2.5rem] border border-white/5 bg-gradient-to-br from-indigo-950/80 via-indigo-900/60 to-slate-900/80 p-10 sm:p-14 spotlight-container reveal backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] z-10">
+          <div className="spotlight" style={{ opacity: 0 }} />
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-indigo-500/20 rounded-full blur-[80px]" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-500/10 border border-teal-500/20 rounded-full text-teal-400 text-xs font-bold tracking-widest uppercase mb-6">
+                <Lock className="w-3.5 h-3.5" />
+                Our Commitment
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-extrabold text-white mb-5 tracking-tight">
+                Trauma-Informed at Every Level
+              </h3>
+              <p className="text-slate-300 text-lg leading-relaxed max-w-2xl font-medium">
+                Our entire team — from senior management to support workers — is extensively trained in trauma-informed practice.
+                We recognise that behaviour is communication, and respond with deep compassion and structural safety rather than consequence.
+              </p>
+            </div>
+            <Link href="/about" className="shrink-0 group inline-flex items-center gap-3 px-8 py-5 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl border border-white/10 hover:border-white/30 backdrop-blur-md transition-all duration-300 shadow-xl hover:-translate-y-1">
+              Read Our Ethos <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </section>
+      </section>
+
+      {/* ── PATHWAY TO INDEPENDENCE (Sticky Scroll) ──────────────────────────── */}
+      <section className="py-24 sm:py-32 bg-slate-900 relative">
+        <div className="absolute top-0 right-0 w-full h-[500px] bg-gradient-to-b from-slate-950 to-transparent pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+
+          {/* Left Column: Sticky Headings */}
+          <div className="lg:w-1/3 lg:sticky lg:top-32 reveal flex-shrink-0">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+              <Compass className="w-3.5 h-3.5" />
+              The Journey
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+              The Pathway to <br /><span className="gradient-text">Independence</span>
+            </h2>
+            <p className="mt-6 text-slate-400 text-lg leading-relaxed">
+              A structured, compassionate journey from first arrival to confident, independent living. Every step is guided by dedicated support workers.
+            </p>
+            <div className="mt-10">
+              <Link href="/commissioners" className="group inline-flex items-center gap-2.5 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-semibold rounded-2xl shadow-lg hover:-translate-y-0.5 transition-all duration-300 backdrop-blur-sm">
+                Commissioner Info <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Column: Scrolling Steps */}
+          <div className="lg:w-2/3 flex flex-col gap-8 w-full">
+            {pathwaySteps.map((step, i) => (
+              <div key={step.step} className={`reveal-left relative flex flex-col sm:flex-row items-start gap-6 p-8 rounded-3xl bg-slate-950/50 border border-white/5 hover:border-white/10 hover:bg-slate-950/80 transition-all duration-500 card-hover shadow-xl overflow-hidden group stagger-${(i % 3) + 1}`}>
+                <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${step.color} blur-[100px] opacity-[0.03] group-hover:opacity-10 transition-opacity duration-700 pointer-events-none`} />
+                <div className={`shrink-0 relative z-10 w-20 h-20 rounded-3xl bg-gradient-to-br ${step.color} flex flex-col items-center justify-center shadow-lg ${step.glow} group-hover:scale-110 transition-transform duration-500`}>
+                  <step.icon className="w-8 h-8 text-white mb-1" />
+                </div>
+                <div className="flex-1">
+                  <span className={`inline-block px-2.5 py-1 rounded-md bg-gradient-to-r ${step.color} text-white font-bold text-[10px] tracking-widest uppercase mb-3 opacity-90`}>
+                    {step.step}
+                  </span>
+                  <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{step.title}</h3>
+                  <p className="text-base text-slate-400 leading-relaxed font-medium">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── 4 PILLARS ──────────────────────────────────────────── */}
-      <section className="py-20 sm:py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl mx-auto mb-16 reveal">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs font-semibold mb-4">
-            <Zap className="w-3 h-3" />
+      {/* ── 4 PILLARS (Bento Grid) ──────────────────────────────────────────── */}
+      <section className="py-20 sm:py-32 bg-slate-950 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl mx-auto mb-16 reveal relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+            <Zap className="w-3.5 h-3.5" />
             Our Foundation
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Four Pillars of <span className="gradient-text">Excellence</span>
           </h2>
-          <p className="mt-4 text-slate-500 text-lg">
+          <p className="mt-5 text-slate-400 text-lg leading-relaxed">
             Every aspect of our service is built on these core principles, ensuring the highest standards of care.
           </p>
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {pillars.map((pillar, i) => (
-            <div key={pillar.title} className={`reveal card-shimmer group relative p-6 bg-white rounded-3xl border border-slate-100 card-hover stagger-${i + 1}`} style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="absolute -top-2.5 right-5">
-                <span className={`px-2.5 py-0.5 bg-gradient-to-r ${pillar.gradient} text-white text-[10px] font-bold rounded-full uppercase tracking-wider shadow-md ${pillar.glow}`}>{pillar.badge}</span>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-5 auto-rows-[300px] relative z-10">
+          {pillars.map((pillar, i) => {
+            const bentoClasses = [
+              "md:col-span-6 lg:col-span-8 bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950",
+              "md:col-span-6 lg:col-span-4 bg-gradient-to-bl from-slate-900 via-teal-950/20 to-slate-950",
+              "md:col-span-6 lg:col-span-5 bg-gradient-to-tr from-slate-950 via-indigo-950/30 to-slate-900",
+              "md:col-span-6 lg:col-span-7 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-950"
+            ][i % 4];
+
+            return (
+              <div key={pillar.title} className={`reveal card-shimmer group relative p-8 rounded-[2rem] border border-white/5 card-hover shadow-2xl overflow-hidden flex flex-col justify-end stagger-${i + 1} ${bentoClasses}`} style={{ transitionDelay: `${i * 80}ms` }}>
+                <div className={`absolute top-0 right-0 w-[150%] h-[150%] bg-gradient-to-br ${pillar.gradient} blur-[120px] opacity-[0.08] group-hover:opacity-20 transition-opacity duration-700 pointer-events-none rounded-full translate-x-1/3 -translate-y-1/3`} />
+
+                <div className="absolute top-6 right-6">
+                  <span className={`px-4 py-1.5 bg-gradient-to-r ${pillar.gradient} text-white shadow-lg ${pillar.glow} text-[10px] font-black rounded-full uppercase tracking-[0.15em]`}>
+                    {pillar.badge}
+                  </span>
+                </div>
+
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${pillar.gradient} flex items-center justify-center mb-auto shadow-[0_0_20px_rgba(255,255,255,0.15)] group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500 backdrop-blur-md`}>
+                  <pillar.icon className="w-6 h-6 text-white" />
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-8 mb-3 tracking-tight drop-shadow-sm">{pillar.title}</h3>
+                <p className="text-base text-slate-300 leading-relaxed font-medium line-clamp-3">{pillar.description}</p>
               </div>
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${pillar.gradient} flex items-center justify-center mb-5 shadow-lg ${pillar.glow} group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                <pillar.icon className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">{pillar.title}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">{pillar.description}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

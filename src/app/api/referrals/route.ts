@@ -114,8 +114,10 @@ export async function POST(request: NextRequest) {
                 yp_dob: '2010-01-01', // Dummy data for required fields from basic form
                 placement_type: 'Supported Accommodation',
                 funding_authority: localAuthority!.trim(),
+                funding_agreed: false,
                 expected_start_date: new Date().toISOString().split('T')[0],
-                additional_info: message!.trim()
+                additional_info: message!.trim(),
+                status: 'new'
             });
 
         if (dbError) {
@@ -133,6 +135,7 @@ export async function POST(request: NextRequest) {
             await resend.emails.send({
                 from: "Amani Pathways <onboarding@resend.dev>", // Must use onboarding domain until amanipathways.co.uk is verified on Resend
                 to: referrerEmail!.trim(),
+                bcc: ["amanipathways@outlook.com"], // Notify the admin team
                 replyTo: "amanipathways@outlook.com",
                 subject: isEnquiry ? "Enquiry Received - Amani Pathways" : "Referral Received - Amani Pathways",
                 html: getReferralEmailHtml(referrerName!.trim(), !!isEnquiry)

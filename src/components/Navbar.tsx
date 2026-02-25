@@ -35,33 +35,30 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-500 ${scrolled
-        ? "bg-white/80 backdrop-blur-xl shadow-lg shadow-indigo-500/5 border-b border-white/50"
-        : "bg-transparent"
+      className={`fixed top-4 inset-x-4 sm:inset-x-6 lg:inset-x-8 max-w-7xl mx-auto z-50 rounded-2xl transition-all duration-500 border ${scrolled
+        ? "bg-slate-950/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] border-white/10"
+        : "bg-transparent border-transparent"
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-18">
+      <div className="px-4 py-2 sm:px-6">
+        <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className={`relative transition-all duration-500 ${scrolled ? "w-11 h-11" : "w-10 h-10"} group-hover:drop-shadow-[0_0_10px_rgba(124,92,252,0.5)]`}>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className={`relative transition-all duration-500 ${scrolled ? "w-10 h-10" : "w-12 h-12"} group-hover:drop-shadow-[0_0_15px_rgba(45,212,191,0.6)]`}>
               <Image
                 src="/logo-icon.svg"
                 alt="Amani Pathways Logo"
-                width={44}
-                height={44}
+                width={48}
+                height={48}
                 className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
                 priority
               />
             </div>
             <div className="flex flex-col">
-              <span className={`text-lg font-bold tracking-tight leading-tight transition-all duration-300 ${scrolled
-                ? "bg-gradient-to-r from-indigo-700 to-teal-600 bg-clip-text text-transparent"
-                : "text-white"
-                }`}>
+              <span className={`text-xl font-bold tracking-tight leading-tight transition-all duration-300 text-slate-100 group-hover:text-white drop-shadow-sm`}>
                 Amani Pathways
               </span>
-              <span className={`text-[10px] font-medium tracking-widest uppercase hidden sm:block transition-colors duration-300 ${scrolled ? "text-slate-400" : "text-white/60"
+              <span className={`text-[9px] font-bold tracking-[0.2em] uppercase hidden sm:block transition-colors duration-300 ${scrolled ? "text-teal-400" : "text-teal-400/80"
                 }`}>
                 Supported Accommodation
               </span>
@@ -76,15 +73,15 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${isActive
+                  className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${isActive
                     ? "text-white"
                     : scrolled
-                      ? "text-slate-600 hover:text-indigo-700"
-                      : "text-white/80 hover:text-white"
+                      ? "text-slate-300 hover:text-white hover:bg-white/5"
+                      : "text-white/80 hover:text-white hover:bg-white/10"
                     }`}
                 >
                   {isActive && (
-                    <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 shadow-md shadow-indigo-500/25" />
+                    <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/80 to-teal-500/80 shadow-[0_0_15px_rgba(124,92,252,0.4)] backdrop-blur-md border border-white/20" />
                   )}
                   <span className="relative">{link.label}</span>
                 </Link>
@@ -109,7 +106,7 @@ export default function Navbar() {
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2.5 rounded-xl text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200"
+              className="p-2.5 rounded-xl text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200"
               aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
             >
               {mobileOpen ? (
@@ -131,7 +128,7 @@ export default function Navbar() {
             clickOutsideDeactivates: true,
           }}
         >
-          <div className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 animate-fade-up">
+          <div className="lg:hidden absolute top-full left-0 w-full mt-2 rounded-2xl bg-slate-950/90 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.8)] animate-fade-up overflow-hidden">
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
@@ -141,8 +138,8 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
                     className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive
-                      ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md"
-                      : "text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
+                      ? "bg-gradient-to-r from-indigo-500/80 to-teal-500/80 text-white shadow-[0_0_15px_rgba(124,92,252,0.4)] border border-white/20"
+                      : "text-slate-300 hover:bg-white/10 hover:text-white"
                       }`}
                   >
                     {link.label}
@@ -152,7 +149,7 @@ export default function Navbar() {
               <Link
                 href="/referrals"
                 onClick={() => setMobileOpen(false)}
-                className="block mt-2 px-4 py-3 bg-gradient-to-r from-indigo-600 to-teal-500 text-white text-sm font-semibold rounded-xl text-center shadow-md"
+                className="block mt-4 px-4 py-3 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 text-white text-sm font-bold tracking-wide rounded-xl text-center shadow-[0_0_20px_rgba(20,184,166,0.4)]"
               >
                 ✨ Make a Referral
               </Link>

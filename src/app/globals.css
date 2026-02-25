@@ -1,3 +1,4 @@
+@import "leaflet/dist/leaflet.css";
 @import "tailwindcss";
 
 @theme inline {
@@ -203,6 +204,28 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* ═══════════════════════════════════════════════════════
+   UPGRADE #15 — INFINITE MARQUEE
+═══════════════════════════════════════════════════════ */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 /* ═══════════════════════════════════════════════════════
