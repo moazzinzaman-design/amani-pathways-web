@@ -13,6 +13,10 @@ import {
 } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import InteractiveFAQ from "@/components/InteractiveFAQ";
+import GlowingOrbs from "@/components/GlowingOrbs";
+import SweepRevealText from "@/components/SweepRevealText";
+import MagneticButton from "@/components/MagneticButton";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface FormState {
     referrerName: string;
@@ -35,6 +39,9 @@ export default function ReferralsPage() {
         "idle"
     );
     const [errorMsg, setErrorMsg] = useState("");
+
+    const { scrollY } = useScroll();
+    const yHero = useTransform(scrollY, [0, 500], [0, 50]);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -80,26 +87,29 @@ export default function ReferralsPage() {
         <>
             {/* Header */}
             <section className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
-                <div className="absolute inset-0 overflow-hidden">
+                <GlowingOrbs />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-10 left-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl animate-float-slow" />
                     <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl animate-float" />
                 </div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-3xl">
+                    <motion.div style={{ y: yHero }} className="max-w-3xl">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-teal-300 text-xs font-medium mb-6 border border-white/10">
                             <Sparkles className="w-3.5 h-3.5" />
                             Get in Touch
                         </div>
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-                            Make a{" "}
-                            <span className="gradient-text">Referral</span>
+                            <SweepRevealText delay={0.1}>
+                                Make a{" "}
+                                <span className="gradient-text">Referral</span>
+                            </SweepRevealText>
                         </h1>
                         <p className="mt-5 text-lg text-slate-300/90 leading-relaxed max-w-2xl">
                             If you are a Local Authority Commissioner or Social Worker looking
                             to place a young person, complete the form below. Our team will
                             respond within 24 hours.
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -260,24 +270,26 @@ export default function ReferralsPage() {
                                 />
                             </div>
 
-                            <button
-                                type="submit"
-                                disabled={status === "loading" || !form.turnstileToken}
-                                className="group w-full relative flex items-center justify-center gap-2.5 px-6 py-4 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:translate-y-0 overflow-hidden"
-                            >
-                                <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                {status === "loading" ? (
-                                    <>
-                                        <Loader2 className="w-5 h-5 animate-spin relative" />
-                                        <span className="relative">Submitting...</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Send className="w-4 h-4 relative" />
-                                        <span className="relative">Submit Referral</span>
-                                    </>
-                                )}
-                            </button>
+                            <MagneticButton className="w-full">
+                                <button
+                                    type="submit"
+                                    disabled={status === "loading" || !form.turnstileToken}
+                                    className="btn-micro group w-full relative flex items-center justify-center gap-2.5 px-6 py-4 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-xl shadow-neon hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:translate-y-0 overflow-hidden"
+                                >
+                                    <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    {status === "loading" ? (
+                                        <>
+                                            <Loader2 className="w-5 h-5 animate-spin relative" />
+                                            <span className="relative">Submitting...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Send className="w-4 h-4 relative" />
+                                            <span className="relative">Submit Referral</span>
+                                        </>
+                                    )}
+                                </button>
+                            </MagneticButton>
 
                             <div className="flex items-center justify-center gap-2 text-xs text-slate-400">
                                 <Shield className="w-3 h-3" />

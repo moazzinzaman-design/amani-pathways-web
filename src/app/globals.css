@@ -463,16 +463,16 @@ nav {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Enhanced card-hover with 3D tilt feel */
+  /* Enhanced card-hover — vibrant glow for dark theme */
   .card-hover {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
   }
 
   .card-hover:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow: 0 24px 64px -12px rgba(124, 92, 252, 0.22),
-      0 8px 24px -4px rgba(0, 0, 0, 0.08);
+    transform: translateY(-6px) scale(1.005);
+    box-shadow: 0 20px 48px -12px rgba(99, 102, 241, 0.15),
+      0 8px 20px -4px rgba(0, 0, 0, 0.2);
   }
 
   /* UPGRADE #4 — Cursor-spotlight glow target */
@@ -590,5 +590,85 @@ nav {
     outline: 2px solid #7c5cfc;
     outline-offset: 3px;
     border-radius: 8px;
+  }
+
+  /* UPGRADE #13: Hover Reveal List */
+  .hover-reveal-list li {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-reveal-list:hover li:not(:hover) {
+    filter: brightness(0.6) blur(1px);
+    transform: scale(0.98);
+  }
+
+  .hover-reveal-list li:hover {
+    transform: translateX(10px) scale(1.02);
+    filter: brightness(1.2);
+  }
+
+  /* UPGRADE #14: Neon Shadows */
+  .shadow-neon {
+    box-shadow: 0 0 15px rgba(20, 184, 166, 0.3), 0 0 30px rgba(99, 102, 241, 0.2);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .shadow-neon:hover {
+    box-shadow: 0 0 25px rgba(20, 184, 166, 0.5), 0 0 50px rgba(99, 102, 241, 0.4);
+  }
+
+  /* UPGRADE #16: Button Micro-interactions */
+  .btn-micro {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-micro:active {
+    transform: scale(0.95);
+  }
+
+  /* UPGRADE #20: Glowing Gradient Card Borders pseudo-element */
+  .glow-border {
+    position: relative;
+    z-index: 1;
+  }
+
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #14b8a6, #6366f1, #fbbf24, #14b8a6);
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease infinite;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .glow-border:hover::before {
+    opacity: 1;
+  }
+
+  /* UPGRADE #17: Shooting Star Animations */
+  @keyframes shooting-star {
+    0% {
+      transform: translateX(0) translateY(0) rotate(45deg);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateX(1000px) translateY(1000px) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  .shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    border-radius: 999px;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 1));
+    animation: shooting-star 2s linear infinite;
   }
 }

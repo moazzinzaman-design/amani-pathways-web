@@ -11,6 +11,7 @@ import CookieBanner from "@/components/CookieBanner";
 import HighContrastToggle from "@/components/HighContrastToggle";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import PageTransition from "@/components/PageTransition";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -100,7 +101,9 @@ export default function RootLayout({
           <Navbar />
           <main id="main-content" className="min-h-screen">
             <Breadcrumbs />
-            {children}
+            <PageTransition>
+              {children}
+            </PageTransition>
           </main>
           <Footer />
           <BackToTop />

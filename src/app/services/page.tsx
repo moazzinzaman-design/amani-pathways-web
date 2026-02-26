@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Home,
     Clock,
@@ -13,6 +15,10 @@ import {
     AlertTriangle,
 } from "lucide-react";
 import DayInTheLife from "@/components/DayInTheLife";
+import GlowingOrbs from "@/components/GlowingOrbs";
+import SweepRevealText from "@/components/SweepRevealText";
+import TiltCard from "@/components/TiltCard";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const accommodation = [
     {
@@ -97,30 +103,36 @@ const supportServices = [
 ];
 
 export default function ServicesPage() {
+    const { scrollY } = useScroll();
+    const yHero = useTransform(scrollY, [0, 500], [0, 50]);
+
     return (
         <>
             {/* Header */}
             <section className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
-                <div className="absolute inset-0 overflow-hidden">
+                <GlowingOrbs />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-10 left-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl" />
                 </div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-3xl">
+                    <motion.div style={{ y: yHero }} className="max-w-3xl">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-teal-300 text-xs font-medium mb-6 border border-white/10">
                             <Sparkles className="w-3.5 h-3.5" />
                             What We Provide
                         </div>
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-                            Accommodation &{" "}
-                            <span className="gradient-text">Support</span>
+                            <SweepRevealText delay={0.1}>
+                                Accommodation &{" "}
+                                <span className="gradient-text">Support</span>
+                            </SweepRevealText>
                         </h1>
                         <p className="mt-5 text-lg text-slate-300/90 leading-relaxed max-w-2xl">
                             Our service combines high-quality accommodation with comprehensive
                             support, designed to help young people build the skills and confidence
                             they need for independent living.
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -144,10 +156,7 @@ export default function ServicesPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         {accommodation.map((item) => (
-                            <div
-                                key={item.title}
-                                className="group flex gap-5 p-6 rounded-3xl bg-white border border-slate-100 card-hover"
-                            >
+                            <TiltCard key={item.title} className="group flex gap-5 p-6 rounded-3xl bg-white border border-slate-100 card-hover shadow-neon">
                                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
                                     <item.icon className="w-6 h-6 text-white" />
                                 </div>
@@ -159,7 +168,7 @@ export default function ServicesPage() {
                                         {item.description}
                                     </p>
                                 </div>
-                            </div>
+                            </TiltCard>
                         ))}
                     </div>
 
@@ -199,10 +208,7 @@ export default function ServicesPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {supportServices.map((service) => (
-                            <div
-                                key={service.title}
-                                className="group p-7 bg-white rounded-3xl border border-slate-100 card-hover"
-                            >
+                            <TiltCard key={service.title} className="group p-7 bg-white rounded-3xl border border-slate-100 card-hover shadow-neon">
                                 <div className={`w-12 h-12 rounded-2xl ${service.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                                     <service.icon className={`w-6 h-6 ${service.color}`} />
                                 </div>
@@ -212,7 +218,7 @@ export default function ServicesPage() {
                                 <p className="text-sm text-slate-500 leading-relaxed">
                                     {service.description}
                                 </p>
-                            </div>
+                            </TiltCard>
                         ))}
                     </div>
                 </div>

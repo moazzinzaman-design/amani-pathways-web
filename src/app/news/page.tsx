@@ -4,6 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, User, Tag, Sparkles, Clock } from "lucide-react";
+import GlowingOrbs from "@/components/GlowingOrbs";
+import SweepRevealText from "@/components/SweepRevealText";
+import TiltCard from "@/components/TiltCard";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 // Mock data for news articles
 const newsItems = [
@@ -43,6 +47,8 @@ const categories = ["All", "Announcements", "Property", "Technology"];
 
 export default function NewsPage() {
     const [activeCategory, setActiveCategory] = useState("All");
+    const { scrollY } = useScroll();
+    const yHero = useTransform(scrollY, [0, 500], [0, 50]);
 
     const filteredNews = activeCategory === "All"
         ? newsItems
@@ -52,22 +58,25 @@ export default function NewsPage() {
         <>
             {/* Header */}
             <section className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
-                <div className="absolute inset-0 overflow-hidden">
+                <GlowingOrbs />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-10 left-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl" />
                 </div>
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                <motion.div style={{ y: yHero }} className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-indigo-300 text-xs font-medium mb-6 border border-white/10">
                         <Sparkles className="w-3.5 h-3.5" />
                         Stay Informed
                     </div>
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
-                        News & <span className="gradient-text">Updates</span>
+                        <SweepRevealText delay={0.1}>
+                            News & <span className="gradient-text">Updates</span>
+                        </SweepRevealText>
                     </h1>
                     <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
                         Read the latest announcements, success stories, and updates from the Amani Pathways community and our partners across West Yorkshire.
                     </p>
-                </div>
+                </motion.div>
             </section>
 
             {/* Content Body */}
@@ -93,7 +102,7 @@ export default function NewsPage() {
                     {/* News Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredNews.map((news) => (
-                            <article key={news.id} className="group bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 card-hover flex flex-col h-full">
+                            <TiltCard key={news.id} className="group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 card-hover shadow-neon flex flex-col h-full">
                                 {/* Image Container */}
                                 <div className="relative h-56 w-full overflow-hidden">
                                     <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10" />
@@ -142,7 +151,7 @@ export default function NewsPage() {
                                         </div>
                                     </div>
                                 </div>
-                            </article>
+                            </TiltCard>
                         ))}
                     </div>
 

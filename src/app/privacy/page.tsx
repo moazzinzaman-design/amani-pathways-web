@@ -1,26 +1,37 @@
+"use client";
+
 import { Shield, Lock, FileText, Mail } from "lucide-react";
+import GlowingOrbs from "@/components/GlowingOrbs";
+import SweepRevealText from "@/components/SweepRevealText";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function PrivacyPolicyPage() {
+    const { scrollY } = useScroll();
+    const yHero = useTransform(scrollY, [0, 500], [0, 50]);
+
     return (
         <>
             {/* Header */}
             <section className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28 pt-32 lg:pt-40">
-                <div className="absolute inset-0 overflow-hidden">
+                <GlowingOrbs />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-10 left-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl animate-float-slow" />
                     <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl animate-float" />
                 </div>
-                <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <motion.div style={{ y: yHero }} className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-teal-300 text-xs font-medium mb-6 border border-white/10">
                         <Shield className="w-3.5 h-3.5" />
                         Data Protection
                     </div>
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-                        Privacy <span className="gradient-text">Policy</span>
+                        <SweepRevealText delay={0.1}>
+                            Privacy <span className="gradient-text">Policy</span>
+                        </SweepRevealText>
                     </h1>
                     <p className="mt-5 text-lg text-slate-300/90 leading-relaxed max-w-2xl mx-auto">
                         How Amani Pathways Ltd collects, uses, and protects your personal information in compliance with UK GDPR.
                     </p>
-                </div>
+                </motion.div>
             </section>
 
             {/* Content */}

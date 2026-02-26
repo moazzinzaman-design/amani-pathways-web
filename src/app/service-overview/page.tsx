@@ -18,6 +18,8 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import SweepRevealText from "@/components/SweepRevealText";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 // Register Chart.js components
 Chart.register(
@@ -95,6 +97,9 @@ export default function ServiceOverviewPage() {
     const [tenantInput, setTenantInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState<ResultData | null>(null);
+
+    const { scrollY } = useScroll();
+    const yHero = useTransform(scrollY, [0, 500], [0, 50]);
 
     // Initialize charts
     useEffect(() => {
@@ -310,7 +315,7 @@ export default function ServiceOverviewPage() {
             {/* Hero Section */}
             <header className="bg-blue-900 text-white py-16 px-4 shadow-xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 opacity-10 text-9xl font-bold -mr-16 -mt-10 select-none">CARE</div>
-                <div className="max-w-6xl mx-auto text-center relative z-10">
+                <motion.div style={{ y: yHero }} className="max-w-6xl mx-auto text-center relative z-10">
                     <div className="inline-flex gap-2 mb-6 flex-wrap justify-center">
                         <span className="bg-teal-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase shadow-sm">
                             Local Authority Partner
@@ -322,7 +327,9 @@ export default function ServiceOverviewPage() {
                             24/7 Support
                         </span>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">AMANI PATHWAYS</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
+                        <SweepRevealText delay={0.1}>AMANI PATHWAYS</SweepRevealText>
+                    </h1>
                     <p className="text-xl md:text-2xl text-teal-100 font-light max-w-3xl mx-auto">
                         Empowering Lives Through Tailored Supported Living in West Yorkshire.
                     </p>
@@ -334,7 +341,7 @@ export default function ServiceOverviewPage() {
                             View Sufficiency Data
                         </a>
                     </div>
-                </div>
+                </motion.div>
             </header>
 
             {/* Main Content Container */}

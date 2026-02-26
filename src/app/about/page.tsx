@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Heart,
     ShieldCheck,
@@ -10,6 +12,10 @@ import {
     CheckCircle2,
 } from "lucide-react";
 import TeamPreview from "@/components/TeamPreview";
+import GlowingOrbs from "@/components/GlowingOrbs";
+import SweepRevealText from "@/components/SweepRevealText";
+import TiltCard from "@/components/TiltCard";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const values = [
     {
@@ -51,30 +57,36 @@ const recruitmentSteps = [
 ];
 
 export default function AboutPage() {
+    const { scrollY } = useScroll();
+    const yHero = useTransform(scrollY, [0, 500], [0, 50]);
+
     return (
         <>
             {/* Header */}
             <section className="relative overflow-hidden noise-bg bg-gradient-to-br from-indigo-950 via-indigo-900 to-slate-900 py-20 sm:py-28">
-                <div className="absolute inset-0 overflow-hidden">
+                <GlowingOrbs />
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-10 right-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 left-10 w-[300px] h-[300px] bg-indigo-600/15 rounded-full blur-3xl" />
                 </div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-3xl">
+                    <motion.div style={{ y: yHero }} className="max-w-3xl">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full text-teal-300 text-xs font-medium mb-6 border border-white/10">
                             <Sparkles className="w-3.5 h-3.5" />
                             Who We Are
                         </div>
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
-                            About{" "}
-                            <span className="gradient-text">Amani Pathways</span>
+                            <SweepRevealText delay={0.1}>
+                                About{" "}
+                                <span className="gradient-text">Amani Pathways</span>
+                            </SweepRevealText>
                         </h1>
                         <p className="mt-5 text-lg text-slate-300/90 leading-relaxed max-w-2xl">
                             We are a dedicated team committed to providing the highest standard
                             of supported accommodation for unaccompanied asylum-seeking children,
                             guided by compassion, compliance, and cultural understanding.
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
 
@@ -98,10 +110,7 @@ export default function AboutPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {values.map((value) => (
-                            <div
-                                key={value.title}
-                                className="group p-7 rounded-3xl bg-white border border-slate-100 card-hover"
-                            >
+                            <TiltCard key={value.title} className="group p-7 rounded-3xl bg-white border border-slate-100 card-hover shadow-neon">
                                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center mb-5 shadow-lg ${value.glow} group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
                                     <value.icon className="w-6 h-6 text-white" />
                                 </div>
@@ -111,7 +120,7 @@ export default function AboutPage() {
                                 <p className="text-sm text-slate-500 leading-relaxed">
                                     {value.description}
                                 </p>
-                            </div>
+                            </TiltCard>
                         ))}
                     </div>
                 </div>

@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Sparkles, ChevronDown, Map, ShieldCheck, FileText, Send, BookOpen, Users, LayoutDashboard, Newspaper } from "lucide-react";
 import FocusTrap from "focus-trap-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import MagneticButton from "@/components/MagneticButton";
 
 type SubLink = {
   href: string;
@@ -75,8 +76,8 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-4 inset-x-4 sm:inset-x-6 lg:inset-x-8 max-w-7xl mx-auto z-50 rounded-2xl transition-all duration-500 border ${scrolled
-          ? "bg-slate-950/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] border-white/10"
-          : "bg-transparent border-transparent"
+        ? "bg-slate-950/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(20,184,166,0.15)] border-b-teal-500/30 border-t-white/10 border-x-white/10"
+        : "bg-transparent border-transparent"
         }`}
     >
       <div className="px-4 py-2 sm:px-6">
@@ -113,10 +114,10 @@ export default function Navbar() {
                   <div key={link.label} className="relative group px-1">
                     <button
                       className={`relative px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-1.5 ${isActive
-                          ? "text-white"
-                          : scrolled
-                            ? "text-slate-300 hover:text-white hover:bg-white/5"
-                            : "text-white/80 hover:text-white hover:bg-white/10"
+                        ? "text-white"
+                        : scrolled
+                          ? "text-slate-300 hover:text-white hover:bg-white/5"
+                          : "text-white/80 hover:text-white hover:bg-white/10"
                         }`}
                     >
                       {isActive && (
@@ -137,8 +138,8 @@ export default function Navbar() {
                               key={subLink.href}
                               href={subLink.href}
                               className={`flex items-start gap-3.5 p-3 rounded-xl transition-all duration-200 group/item ${isSubActive
-                                  ? "bg-indigo-500/20 shadow-[inset_0_0_12px_rgba(99,102,241,0.2)]"
-                                  : "hover:bg-white/5"
+                                ? "bg-indigo-500/20 shadow-[inset_0_0_12px_rgba(99,102,241,0.2)]"
+                                : "hover:bg-white/5"
                                 }`}
                             >
                               <div className={`mt-0.5 shrink-0 p-2 rounded-lg transition-colors duration-200 ${isSubActive ? "bg-teal-500/20 text-teal-400" : "bg-slate-800 text-slate-400 group-hover/item:text-teal-400 group-hover/item:bg-slate-700 shadow-inner"}`}>
@@ -166,10 +167,10 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href!}
                   className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${isActive
-                      ? "text-white"
-                      : scrolled
-                        ? "text-slate-300 hover:text-white hover:bg-white/5"
-                        : "text-white/80 hover:text-white hover:bg-white/10"
+                    ? "text-white"
+                    : scrolled
+                      ? "text-slate-300 hover:text-white hover:bg-white/5"
+                      : "text-white/80 hover:text-white hover:bg-white/10"
                     }`}
                 >
                   {isActive && (
@@ -183,14 +184,16 @@ export default function Navbar() {
               <ThemeToggle />
             </div>
 
-            <Link
-              href="/referrals"
-              className="group relative inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-[0_8px_25px_rgba(99,102,241,0.4)] hover:-translate-y-0.5 overflow-hidden"
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <Sparkles className="w-4 h-4 relative shrink-0" />
-              <span className="relative">Make a Referral</span>
-            </Link>
+            <MagneticButton strength={20}>
+              <Link
+                href="/referrals"
+                className="group relative inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-teal-500 text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-indigo-500/25 hover:shadow-[0_8px_25px_rgba(99,102,241,0.4)] hover:-translate-y-0.5 overflow-hidden"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-teal-500 via-indigo-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Sparkles className="w-4 h-4 relative shrink-0" />
+                <span className="relative">Make a Referral</span>
+              </Link>
+            </MagneticButton>
           </div>
 
           {/* Mobile Right Icons */}
@@ -232,10 +235,10 @@ export default function Navbar() {
                       <button
                         onClick={() => toggleMobileDropdown(link.label)}
                         className={`w-full flex items-center justify-between px-5 py-3.5 text-sm font-medium transition-colors ${isActive && !isDropdownOpen
-                            ? "bg-indigo-500/20 text-teal-300"
-                            : isDropdownOpen
-                              ? "bg-white/10 text-white"
-                              : "text-slate-200 hover:bg-white/10"
+                          ? "bg-indigo-500/20 text-teal-300"
+                          : isDropdownOpen
+                            ? "bg-white/10 text-white"
+                            : "text-slate-200 hover:bg-white/10"
                           }`}
                       >
                         {link.label}
@@ -257,8 +260,8 @@ export default function Navbar() {
                                 href={subLink.href}
                                 onClick={() => setMobileOpen(false)}
                                 className={`flex items-center gap-3.5 px-4 py-3 rounded-lg text-sm transition-all ${isSubActive
-                                    ? "bg-indigo-500/30 text-teal-300 font-semibold border border-indigo-500/30 shadow-inner"
-                                    : "text-slate-300 hover:text-white hover:bg-white/10"
+                                  ? "bg-indigo-500/30 text-teal-300 font-semibold border border-indigo-500/30 shadow-inner"
+                                  : "text-slate-300 hover:text-white hover:bg-white/10"
                                   }`}
                               >
                                 <Icon className={`w-4 h-4 shrink-0 ${isSubActive ? "text-teal-400" : "text-slate-500"}`} />
@@ -280,8 +283,8 @@ export default function Navbar() {
                     href={link.href!}
                     onClick={() => setMobileOpen(false)}
                     className={`block px-5 py-3.5 rounded-xl text-sm font-medium transition-all ${isActive
-                        ? "bg-gradient-to-r from-indigo-500/80 to-teal-500/80 text-white shadow-[0_0_15px_rgba(124,92,252,0.4)] border border-white/20"
-                        : "text-slate-200 hover:bg-white/10 hover:text-white bg-white/5 border border-white/5"
+                      ? "bg-gradient-to-r from-indigo-500/80 to-teal-500/80 text-white shadow-[0_0_15px_rgba(124,92,252,0.4)] border border-white/20"
+                      : "text-slate-200 hover:bg-white/10 hover:text-white bg-white/5 border border-white/5"
                       }`}
                   >
                     {link.label}
