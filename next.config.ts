@@ -4,7 +4,7 @@ const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: https://images.unsplash.com https://i.ibb.co;
+    img-src 'self' blob: data: https://images.unsplash.com https://i.ibb.co https://server.arcgisonline.com https://unpkg.com;
     font-src 'self' data:;
     object-src 'none';
     base-uri 'self';
