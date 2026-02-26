@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { mapLocations, MapLocation } from "../data/mapLocations";
 import { Navigation, Bus, Car, X, MapPin } from "lucide-react";
 
-const HALIFAX_CENTER: [number, number] = [53.7244, -1.8623];
+const HALIFAX_CENTER: [number, number] = [53.717872, -1.851759];
 
 export function InteractiveMap() {
     const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -12,7 +12,11 @@ export function InteractiveMap() {
     const mapInstanceRef = useRef<any>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const markersRef = useRef<any[]>([]);
-    const [activeLocation, setActiveLocation] = useState<MapLocation | null>(null);
+
+    // Set Amani Pathways as the default active location on load
+    const [activeLocation, setActiveLocation] = useState<MapLocation | null>(() => {
+        return mapLocations.find(loc => loc.id === "amani-pathways-home") || null;
+    });
 
     // ── Initialise Leaflet on mount (client-only) ──────────────────────────
     useEffect(() => {

@@ -19,6 +19,23 @@ export interface MapLocation {
 
 export const mapLocations: MapLocation[] = [
     {
+        id: "amani-pathways-home",
+        name: "Amani Pathways (You Are Here)",
+        description: "Your home at 8 Mayfield Avenue. This is your safe space and base for exploring Halifax.",
+        funThings: [
+            "Relax in your own space 🛋️",
+            "Cook a meal in the shared kitchen 🍳",
+            "Chat with staff and other residents 💬"
+        ],
+        transport: {
+            walking: "0 mins",
+        },
+        emoji: "🏠",
+        lat: 53.717872, lng: -1.851759,
+        x: 50,
+        y: 50
+    },
+    {
         id: "dean-clough",
         name: "Dean Clough",
         description: "Once one of the world's largest carpet factories, now a bustling hub of arts, businesses, and cafes. It's a huge, historic site that's been transformed into something cool and modern.",
