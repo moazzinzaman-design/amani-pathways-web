@@ -50,7 +50,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "🏭",
-        lat: 53.7280, lng: -1.8582,
+        lat: 53.7280, lng: -1.8620,
         x: 43,
         y: 5
     },
@@ -68,7 +68,7 @@ export const mapLocations: MapLocation[] = [
             car: "2 mins"
         },
         emoji: "🏛️",
-        lat: 53.7244, lng: -1.8604,
+        lat: 53.72371, lng: -1.8600,
         x: 38,
         y: 32
     },
@@ -87,7 +87,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "⛪",
-        lat: 53.7207, lng: -1.8555,
+        lat: 53.7232, lng: -1.8537,
         x: 92,
         y: 45
     },
@@ -104,7 +104,7 @@ export const mapLocations: MapLocation[] = [
             walking: "Right in the center",
         },
         emoji: "🛍️",
-        lat: 53.7229, lng: -1.8610,
+        lat: 53.7220974, lng: -1.8595494,
         x: 43,
         y: 61
     },
@@ -123,7 +123,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "🏛️✨",
-        lat: 53.7228, lng: -1.8645,
+        lat: 53.721937, lng: -1.856917,
         x: 68,
         y: 64
     },
@@ -142,7 +142,7 @@ export const mapLocations: MapLocation[] = [
             car: "3 mins"
         },
         emoji: "🎭",
-        lat: 53.7236, lng: -1.8620,
+        lat: 53.7211111, lng: -1.8613889,
         x: 28,
         y: 75
     },
@@ -160,7 +160,7 @@ export const mapLocations: MapLocation[] = [
             public: "Next to Train Station",
         },
         emoji: "💡",
-        lat: 53.7262, lng: -1.8700,
+        lat: 53.7187, lng: -1.8554,
         x: 89,
         y: 90
     },
@@ -179,7 +179,7 @@ export const mapLocations: MapLocation[] = [
             car: "5 mins"
         },
         emoji: "⚽",
-        lat: 53.7189, lng: -1.8707,
+        lat: 53.71611, lng: -1.85917,
         x: 13,
         y: 94
     },
@@ -198,7 +198,7 @@ export const mapLocations: MapLocation[] = [
             car: "10 mins"
         },
         emoji: "🌳",
-        lat: 53.7318, lng: -1.8281,
+        lat: 53.726324, lng: -1.838612,
         x: 23,
         y: 15
     }
