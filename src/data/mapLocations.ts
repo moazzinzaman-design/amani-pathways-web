@@ -21,7 +21,7 @@ export const mapLocations: MapLocation[] = [
     {
         id: "amani-pathways-home",
         name: "Amani Pathways (You Are Here)",
-        description: "Your home at 8 Mayfield Avenue. This is your safe space and base for exploring Halifax.",
+        description: "Your home at 8 Mayfield Avenue, HX1 3XE. This is your safe space and base for exploring Halifax.",
         funThings: [
             "Relax in your own space 🛋️",
             "Cook a meal in the shared kitchen 🍳",
@@ -31,7 +31,7 @@ export const mapLocations: MapLocation[] = [
             walking: "0 mins",
         },
         emoji: "🏠",
-        lat: 53.717872, lng: -1.851759,
+        lat: 53.717872, lng: -1.876605,
         x: 50,
         y: 50
     },

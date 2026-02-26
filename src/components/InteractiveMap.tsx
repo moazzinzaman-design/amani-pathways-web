@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { mapLocations, MapLocation } from "../data/mapLocations";
 import { Navigation, Bus, Car, X, MapPin } from "lucide-react";
 
-const HALIFAX_CENTER: [number, number] = [53.717872, -1.851759];
+const HALIFAX_CENTER: [number, number] = [53.717872, -1.876605];
 
 export function InteractiveMap() {
     const mapContainerRef = useRef<HTMLDivElement>(null);
