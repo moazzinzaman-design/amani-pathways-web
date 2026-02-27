@@ -81,17 +81,19 @@ export default function Footer() {
                                     <Mail className="w-3.5 h-3.5 text-teal-400" />
                                 </div>
                                 <a
-                                    href="mailto:referrals@amanipathways.co.uk"
+                                    href="mailto:amanipathways@outlook.com"
                                     className="pt-1.5 hover:text-white transition-colors"
                                 >
-                                    referrals@amanipathways.co.uk
+                                    amanipathways@outlook.com
                                 </a>
                             </li>
                             <li className="flex items-start gap-3 text-sm text-slate-400">
                                 <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
                                     <Phone className="w-3.5 h-3.5 text-teal-400" />
                                 </div>
-                                <span className="pt-1.5">Available on request</span>
+                                <a href="tel:07456522980" className="pt-1.5 hover:text-white transition-colors">
+                                    07456 522980
+                                </a>
                             </li>
                         </ul>
                     </div>

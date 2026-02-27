@@ -251,11 +251,11 @@ export default function CommissionersPage() {
                         <div className="mt-8 flex flex-col sm:flex-row gap-4">
                             <MagneticButton>
                                 <a
-                                    href="mailto:referrals@amanipathways.co.uk"
+                                    href="mailto:amanipathways@outlook.com"
                                     className="btn-micro shadow-neon group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-gradient-to-r from-teal-500 to-teal-400 text-white font-semibold rounded-2xl shadow-lg shadow-teal-500/25 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300"
                                 >
                                     <Mail className="w-4 h-4" />
-                                    referrals@amanipathways.co.uk
+                                    amanipathways@outlook.com
                                 </a>
                             </MagneticButton>
                             <MagneticButton>
@@ -442,10 +442,10 @@ export default function CommissionersPage() {
                                         24/7 emergency contact for existing placements.
                                     </p>
                                     <a
-                                        href="mailto:referrals@amanipathways.co.uk"
+                                        href="mailto:amanipathways@outlook.com"
                                         className="block w-full text-center px-5 py-3 bg-gradient-to-r from-teal-500 to-teal-400 text-white font-semibold rounded-xl text-sm hover:shadow-lg transition-all"
                                     >
-                                        referrals@amanipathways.co.uk
+                                        amanipathways@outlook.com
                                     </a>
                                 </div>
                             </div>
@@ -528,7 +528,7 @@ export default function CommissionersPage() {
                             Have a question not answered here?
                         </p>
                         <a
-                            href="mailto:referrals@amanipathways.co.uk"
+                            href="mailto:amanipathways@outlook.com"
                             className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-xl text-sm hover:bg-slate-800 transition-colors"
                         >
                             <Mail className="w-4 h-4" />

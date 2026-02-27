@@ -186,7 +186,7 @@ export function WelcomeBook() {
                                 <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 mb-3 space-y-2">
                                     <div className="flex flex-col">
                                         <span className="text-xs text-slate-500 font-semibold uppercase">Your Support Worker</span>
-                                        <span className="font-medium text-slate-800">07700 900077</span>
+                                        <span className="font-medium text-slate-800">07456 522980</span>
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-xs text-slate-500 font-semibold uppercase">Emergency (24/7)</span>
