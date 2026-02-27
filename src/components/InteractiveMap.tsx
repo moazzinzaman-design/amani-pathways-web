@@ -45,20 +45,24 @@ export function InteractiveMap() {
                 zoomControl: true,
             });
 
-            // Esri World Imagery satellite — free, no API key
-            L.tileLayer(
-                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-                {
-                    attribution: "Tiles &copy; Esri",
-                    maxZoom: 19,
-                }
-            ).addTo(map);
+            // Mapbox Dark Theme (highly premium and matches our neon/glassmorphism app design)
+            const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-            // Labels overlay on top of satellite imagery
-            L.tileLayer(
-                "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",
-                { maxZoom: 19, opacity: 0.6 }
-            ).addTo(map);
+            if (MAPBOX_TOKEN) {
+                L.tileLayer(
+                    `https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_TOKEN}`,
+                    {
+                        attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+                        maxZoom: 19,
+                    }
+                ).addTo(map);
+            } else {
+                console.warn("Mapbox token missing. Falling back to Esri tiles.");
+                L.tileLayer(
+                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                    { attribution: "Tiles &copy; Esri", maxZoom: 19 }
+                ).addTo(map);
+            }
 
             // Inject custom pin styles
             if (!document.getElementById("emoji-pin-styles")) {
