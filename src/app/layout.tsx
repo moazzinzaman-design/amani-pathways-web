@@ -12,6 +12,7 @@ import HighContrastToggle from "@/components/HighContrastToggle";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import PageTransition from "@/components/PageTransition";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -110,6 +111,7 @@ export default function RootLayout({
           <CookieBanner />
           <HighContrastToggle />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
